@@ -1,0 +1,40 @@
+module.exports = {
+  base: '/blog/',
+  dest: 'docs',
+  title:'wecode 前端团队',
+  description:'致力于利用科技的力量，让孩子们学习编程的过程更轻松、更有趣！',
+  head:[
+    ['link', { rel: 'icon', href: 'favicon.ico' }],
+    ['meta', { name: 'theme-color', content: '#3eaf7c' }],
+  ],
+  themeConfig: {
+    sidebarDepth: 3,
+    navBar: true,
+    nav: [
+      {
+        text: '教程',
+        items: [
+          { text: '开发环境配置参考', link: '/share/env'},
+          { text: '深入scratch', link: '/scratch/1' },
+        ]
+      },
+      {
+        text: '常用网址',
+        link: '/url/fe'
+      },
+      {
+        text: 'github',
+        link: 'https://github.com/wecode-fe'
+      },
+    ],
+    sidebar: {
+      '/scratch/': genSidebarConfig('深入scratch', ['1']),
+    }
+  }
+}
+
+function genSidebarConfig (title, children) {
+  return [
+    { title, children }
+  ]
+}
