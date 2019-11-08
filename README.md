@@ -16,4 +16,4 @@ npm start
 npm run pd
 ```
 访问地址：
-[https://kongwutw.github.io/wecode-fe/](https://kongwutw.github.io/wecode-fe/)
+[https://wecode-fe.github.io/blog/](https://wecode-fe.github.io/blog/)
