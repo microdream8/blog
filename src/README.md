@@ -3,7 +3,7 @@ title: wecode 前端团队
 home: true
 heroImage: /img/logo.png
 actionText: 开始学习
-actionLink: /url/fe'
+actionLink: /url/fe
 features:
 - title: 正直
   details: 热爱并践行优秀中文传统文化，自我的成长来自成就他人！
