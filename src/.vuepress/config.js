@@ -14,8 +14,10 @@ module.exports = {
       {
         text: '教程',
         items: [
-          { text: '开发环境配置参考', link: '/share/env'},
-          { text: '深入scratch', link: '/scratch/1' },
+          { text: '环境配置', link: '/share/env'},
+          { text: 'eslint规则', link: '/share/eslint'},
+          { text: '性能优化', link: '/share/opt'},
+          { text: '深入scratch', link: '/scratch/links' },
         ]
       },
       {
@@ -28,7 +30,7 @@ module.exports = {
       },
     ],
     sidebar: {
-      '/scratch/': genSidebarConfig('深入scratch', ['1']),
+      '/scratch/': genSidebarConfig('深入scratch', ['links', '1']),
     }
   }
 }
