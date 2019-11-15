@@ -31,7 +31,7 @@ module.exports = {
       },
     ],
     sidebar: {
-      '/scratch/': genSidebarConfig('深入scratch', ['links', '1']),
+      '/scratch/': genSidebarConfig('深入scratch', ['links', '1', 'sb3']),
     }
   }
 }

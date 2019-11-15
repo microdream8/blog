@@ -71,4 +71,6 @@ webpackk4在没有 webpack.config.js 的情况下，我们可以在命令行中�
 - Node.js polyfills 自动加载功能被移除
 
 ## 英文文档相关词汇
-云皓整理
+- takes through 引导
+- dive into 深入
+- fares against
