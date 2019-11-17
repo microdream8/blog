@@ -22,6 +22,12 @@ module.exports = {
         ]
       },
       {
+        text: '计算机英语',
+        items: [
+          { text: 'webpack 英文文档学习', link: '/en/webpack'},
+        ]
+      },
+      {
         text: '常用网址',
         link: '/url/fe'
       },
