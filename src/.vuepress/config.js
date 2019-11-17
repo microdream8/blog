@@ -17,6 +17,7 @@ module.exports = {
           { text: '环境配置', link: '/share/env'},
           { text: 'eslint规则', link: '/share/eslint'},
           { text: '性能优化', link: '/share/opt'},
+          { text: '深入webpack', link: '/share/webpack' },
           { text: '深入scratch', link: '/scratch/links' },
         ]
       },
@@ -30,7 +31,7 @@ module.exports = {
       },
     ],
     sidebar: {
-      '/scratch/': genSidebarConfig('深入scratch', ['links', '1']),
+      '/scratch/': genSidebarConfig('深入scratch', ['links', '1', 'sb3']),
     }
   }
 }

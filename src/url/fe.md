@@ -2,7 +2,13 @@
 sidebar: auto
 ---
 # 常用网址
+## 一些教程
+- [支付宝前端九部](https://www.yuque.com/fe9/basic)
+- [MDN](https://developer.mozilla.org/es/)
+
 ## 底层技术
+- [npm ](https://www.npmjs.com/)
+- [webpack ](https://webpack.js.org/guides/)
 - [v8](https://github.com/v8/v8)
 - [chromium](https://github.com/chromium/chromium)
 - [node](https://github.com/nodejs/node.git)
