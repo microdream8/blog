@@ -1,13 +1,14 @@
 ---
+title: 'Webpack随手记'
 sidebar: auto
 collapsable: true
 ---
 
 # Webpack随手记
 
-> 本文记录了一些webpack的核心功能，包含名词解释以及使用场景等，持续更新中...
+> 本文记录了一些webpack的核心功能，包含名词解释以及使用场景等，欢迎大家补充...
 
-## Webpack的构建流程
+## 简述下Webpack的构建流程
 1. 初始化：启动构建，读取与合并配置参数，加载相应的Plugins，实例化Compiler；
 2. 编译：从entry出发，针对每个module串行调用对应的loader去翻译文件内容，再找到该module依赖的module，递归地进行编译处理；
 3. 输出：对编译后的module组合成chunk，再把chunk转换成文件，输出到output指定目录下；
