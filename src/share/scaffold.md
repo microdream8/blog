@@ -26,11 +26,11 @@ collapsable: true
 + #### 思路 （借鉴 vue-cli）
   vue-cli 是将项目模板放在 git 上，运行的时候再根据用户交互下载不同的模板，经过模板引擎渲染出来，生成项目。这样将模板和脚手架分离，就可以各自维护，即使模板有变动，只需要上传最新的模板即可，而不需要用户去更新脚手架就可以生成最新的项目。那么就可以按照这个思路来进行开发了。
 + #### 工具库
-  1、commander.js，可以自动的解析命令和参数，用于处理用户输入的命令。</br>
-  2、download-git-repo，下载并提取 git 仓库，用于下载项目模板。</br>
-  3、inquirer.js，通用的命令行用户界面集合，用于和用户进行交互。</br>
-  4、ora，下载过程久的话，可以用于显示下载中的动画效果。</br>
-  5、chalk，可以给终端的字体加上颜色。</br>
+  1、<font color="red">**commander.js**</font>：可以自动的解析命令和参数，用于处理用户输入的命令。</br>
+  2、<font color="red">**download-git-repo**</font>：下载并提取 git 仓库，用于下载项目模板。</br>
+  3、<font color="red">**inquirer.js**</font>：通用的命令行用户界面集合，用于和用户进行交互。</br>
+  4、<font color="red">**ora**</font>：下载过程久的话，可以用于显示下载中的动画效果。</br>
+  5、<font color="red">**chalk**</font>：可以给终端的字体加上颜色。</br>
 + #### 第一步：编写指令和处理命令行 commander
 + #### 第二步：交互式命令行 inquirer
 + #### 第三步：修改控制台输出内容样式 chalk
