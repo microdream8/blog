@@ -18,7 +18,6 @@ collapsable: true
 - directory 目录
 - initialize 初始化
 - command line 命令行
-
 - indicate 表明；指出
 - module 模块；组件
 - figure out   解决；算出
