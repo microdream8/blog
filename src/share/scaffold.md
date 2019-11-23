@@ -115,6 +115,7 @@ collapsable: true
 
   ````js
     #!/usr/bin/env node
+
     const program = require('commander')
 
     // 定义当前版本
@@ -173,6 +174,7 @@ collapsable: true
   **1、编写xr-add文件：**
     ````js
     #!/usr/bin/env node
+
     // 交互式命令行
     const inquirer = require('inquirer')
     // 修改控制台字符串的样式
@@ -236,10 +238,130 @@ collapsable: true
   我们前面在定义 <font color="red">program.command('add').action(() => {})</font> 的时候没有写 action 这个回调函数，而当我们执行 <font color="red">xr add</font> 的时候，commander 会尝试在入口脚本的目录中搜索可执行文件，找到形如 <font color="red">program-command</font>（这里就是 <font color="red">xr add</font>）的命令来执行，大概这么个意思，下面命令也是一样的道理。.
 
   **2、编写xr-delete文件：**
+    ````js
+    #!/usr/bin/env node
 
-  ## 别慌，未完待续～
+    const inquirer = require('inquirer')
+    const chalk = require('chalk')
+    const fs = require('fs')
+    const tplObj = require(`${__dirname}/../template`)
 
-<!-- + #### 第四步：
+    let question = [
+      {
+        name: "name",
+        message: "请输入要删除的模板名称",
+        validate (val) {
+          if (val === '') {
+            return 'Name is required!'
+          } else if (!tplObj[val]) {
+            return 'Template does not exist!'
+          } else  {
+            return true
+          }
+        }
+      }
+    ]
+
+    inquirer
+      .prompt(question).then(answers => {
+        let { name } = answers;
+        delete tplObj[name]
+        // 更新 template.json 文件
+        fs.writeFile(`${__dirname}/../template.json`, JSON.stringify(tplObj), 'utf-8', err => {
+          if (err) console.log(err)
+          console.log('\n')
+          console.log(chalk.green('Deleted successfully!\n'))
+          console.log(chalk.grey('The latest template list is: \n'))
+          console.log(tplObj)
+          console.log('\n')
+        })
+      })
+    ````
+  执行 xr delete 看下效果：
+
+  <img src="../imgs/scaffold/7.png" style="width: 80%;">
+
+  **3、编写xr-list文件：**
+
+    ```js
+    #!/usr/bin/env node
+
+    const tplObj = require(`${__dirname}/../template`)
+    console.log(tplObj)
+    ````
+  执行 xr list 看看效果：
+
+  <img src="../imgs/scaffold/8.png" style="width: 80%;">
+
+  因为刚才一添加一删除，所以目前没有模板，就输出 <font color="red">{}</font>。
+
+  **4、编写xr-init文件：**
+
+  这应该是最主要（但不难）的一步了，重点就是执行 download 方法，并传入相应参数，具体看代码：
+
+  ````js
+    #!/usr/bin/env node
+
+    const program = require('commander')
+    const chalk = require('chalk')
+    const ora = require('ora')
+    const download = require('download-git-repo')
+    const tplObj = require(`${__dirname}/../template`)
+
+    program
+      .usage('<template-name> [project-name]')
+    program.parse(process.argv)
+    // 当没有输入参数的时候给个提示
+    if (program.args.length < 1) return program.help()
+
+    // 好比 vue init webpack project-name 的命令一样，第一个参数是 webpack，第二个参数是 project-name
+    let templateName = program.args[0]
+    let projectName = program.args[1]
+    // 小小校验一下参数
+    if (!tplObj[templateName]) {
+      console.log(chalk.red('\n Template does not exit! \n '))
+      return
+    }
+    if (!projectName) {
+      console.log(chalk.red('\n Project should not be empty! \n '))
+      return
+    }
+
+    url = tplObj[templateName]
+
+    console.log(chalk.white('\n Start generating... \n'))
+    // 出现加载图标
+    const spinner = ora("Downloading...");
+    spinner.start();
+    // 执行下载方法并传入参数
+    download (
+      url,
+      projectName,
+      err => {
+        if (err) {
+          spinner.fail();
+          console.log(chalk.red(`Generation failed. ${err}`))
+          return
+        }
+        // 结束加载图标
+        spinner.succeed();
+        console.log(chalk.green('\n Generation completed!'))
+        console.log('\n To get started')
+        console.log(`\n    cd ${projectName} \n`)
+      }
+    )
+  ````
+
+  ok，我们执行一下 <font color="red">xr init simple test</font>，记得先执行一下 <font color="red">xr add</font>：
+
+  <img src="../imgs/scaffold/9.png" style="width: 80%;">
+
+  现在我们就可以在左侧的目录中看到 test 项目了，如下图：
+
+  <img src="../imgs/scaffold/10.png" style="width: 30%;">
+
+  至此，一个小小的脚手架就做完了。此处应该有掌声👏👏👏
+  
 ## 总结
-  虽然前端脚手架没有固定形态，但是有必须具备的要素。从功能实现的角度，要考虑与业务的高度匹配；从底层框架的角度，要具备高度的可扩展性和执行环境多样性支持。 -->
+  虽然前端脚手架没有固定形态，但是有必须具备的要素。从功能实现的角度，要考虑与业务的高度匹配；从底层框架的角度，要具备高度的可扩展性和执行环境多样性支持。
 
