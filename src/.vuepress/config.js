@@ -23,6 +23,7 @@ module.exports = {
           { text: '公众号开发总结', link: '/share/wechat' },
           { text: '深入浅出前端脚手架', link: '/share/scaffold' },
           { text: '前端基础JS系列', link: '/share/javascript-basic' },
+          { text: '移动端性能优化', link: '/share/optimize' },
         ]
       },
       {
