@@ -19,7 +19,6 @@ module.exports = {
           { text: '性能优化', link: '/share/opt'},
           { text: '深入webpack', link: '/share/webpack' },
           { text: 'webpack随手记', link: '/share/webpack-note' },
-          { text: '深入scratch', link: '/scratch/links' },
           { text: '公众号开发总结', link: '/share/wechat' },
           { text: '深入浅出前端脚手架', link: '/share/scaffold' },
           { text: '前端基础JS系列', link: '/share/javascript-basic' },
@@ -28,9 +27,17 @@ module.exports = {
         ]
       },
       {
+        text: '重点技术',
+        items: [
+          { text: '深入skulpt', link: '/skulpt/1'},
+          { text: '深入scratch', link: '/scratch/links' },
+        ]
+      },
+      {
         text: '计算机英语',
         items: [
-          { text: 'webpack 英文文档学习', link: '/en/webpack'},
+          { text: 'webpack 英文', link: '/en/webpack'},
+          { text: 'npm 英文', link: '/en/npm'},
         ]
       },
       {
@@ -43,6 +50,7 @@ module.exports = {
       },
     ],
     sidebar: {
+      '/skulpt/': genSidebarConfig('skulpt', ['links', '1']),
       '/scratch/': genSidebarConfig('深入scratch', ['links', '1', 'sb3']),
     }
   }
