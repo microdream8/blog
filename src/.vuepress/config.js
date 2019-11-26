@@ -22,6 +22,7 @@ module.exports = {
           { text: '深入scratch', link: '/scratch/links' },
           { text: '公众号开发总结', link: '/share/wechat' },
           { text: '深入浅出前端脚手架', link: '/share/scaffold' },
+          { text: 'markdown语法', link: '/share/md' },
         ]
       },
       {
