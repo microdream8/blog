@@ -38,6 +38,7 @@ module.exports = {
         items: [
           { text: 'webpack 英文', link: '/en/webpack'},
           { text: 'npm 英文', link: '/en/npm'},
+          { text: 'skulpt 英文', link: '/en/skulpt'},
         ]
       },
       {
