@@ -21,7 +21,6 @@ module.exports = {
           { text: 'webpack随手记', link: '/share/webpack-note' },
           { text: '公众号开发总结', link: '/share/wechat' },
           { text: '深入浅出前端脚手架', link: '/share/scaffold' },
-          { text: '前端基础JS系列', link: '/share/javascript-basic' },
           { text: '移动端性能优化(一)', link: '/share/optimize' },
           { text: '移动端性能优化(二)', link: '/share/optimize2' },
           { text: 'markdown语法', link: '/share/md' },

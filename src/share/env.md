@@ -12,6 +12,20 @@ collapsable: true
 
 在此分享一下自己这几年使用Mac系统进行软件开发搭建环境的一些心得和建议吧。
 
+## 配置source Tree
+解决mac下Sourcetree每次拉取代码都需要输入密码:
+- 先使用命令下载 git-credential-osxkeychain 
+ curl http://github-media-downloads.s3.amazonaws.com/osx/git-credential-osxkeychain -o git-credential-osxkeychain
+- 把 git-credential-osxkeychain 放入 bin目录  
+mv git-credential-osxkeychain /usr/local/bin
+- 给 git-credential-osxkeychain 赋权限  
+chmod u+x /usr/local/bin/git-credential-osxkeychain
+- 在Git全局配置中进行设置(也可以在某一个项目里面设置):  
+git config --global credential.helper osxkeychain
+
+经过上面的设置，下次访问https的项目时只需要输入一次密码,就会存储到osx的钥匙串中了,以后再也不会在Git中询问了.
+
+
 ## 配置终端
 Terminal程序一般我都会放在快捷入口，然后把shell改为oh~my-zsh, 因为shell的类型有很多种，Mac默认的bash的功能虽然已经很强大，但提示功能不够强大，界面也不够炫。而zsh的功能极其强大，只是配置过于复杂，起初只有极客才在用。后来，有个穷极无聊的程序员创建了一个名为oh-my-zsh的开源项目...
 
