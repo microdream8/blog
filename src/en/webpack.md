@@ -30,16 +30,16 @@ collapsable: true
 - consume 消耗，消费
 
 ## 入口点
-mentioned 提及，说起，谈到
-multiple 多重的；多样的；许多的
-explaining 解释
-syntax 语法
-dependencies  依赖性，相关性
-flexibility 灵活性；弹性；适应性
-verbose 啰嗦的
-technique 技巧，技术
-environment 环境，外界
-Scenarios 脚本 情节
+- mentioned 提及，说起，谈到
+- multiple 多重的；多样的；许多的
+- explaining 解释
+- syntax 语法
+- dependencies  依赖性，相关性
+- flexibility 灵活性；弹性；适应性
+- verbose 啰嗦的
+- technique 技巧，技术
+- environment 环境，外界
+- Scenarios 脚本 情节
 
 ## 配置部分
 - optimization 优化
