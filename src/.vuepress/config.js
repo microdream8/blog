@@ -23,6 +23,7 @@ module.exports = {
           { text: '深入浅出前端脚手架', link: '/share/scaffold' },
           { text: '移动端性能优化(一)', link: '/share/optimize' },
           { text: '移动端性能优化(二)', link: '/share/optimize2' },
+          { text: '移动端的那些坑(一)', link: '/share/mobile-bug' },
           { text: 'markdown语法', link: '/share/md' },
         ]
       },
