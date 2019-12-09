@@ -72,3 +72,4 @@ collapsable: true
 - indicator  指标，标志，迹象； 指示器
 - hardware 计算机硬件
 - dispose 处理；处置；安排
+- guarantee 保证；担保
