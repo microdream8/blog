@@ -105,3 +105,38 @@ restriction 限制规定; 限制法规; 限制; 约束; 制约因素<br/>
 mathematical 数学的; (具有) 数学(头脑)的; 运算能力强的<br/>
 Semantics 语义学; (单词、短语或其他符号系统的) 含义<br/>
 implements 使生效; 贯彻; 执行; 实施<br/>
+
+<br/>
+<br/>
+labelSet 标签集<br/>
+Semantics 语义学<br/>
+duplicate 复制<br/>
+Syntax 语法<br/>
+Initializer 初始值设定项<br/>
+execution 执行<br/>
+collectively 共同地<br/>
+elision 省略<br/>
+bindingidentifier 绑定标识符<br/>
+preinitialized 预初始化<br/>
+stmtResult stmtResult公司<br/>
+execution 执行<br/>
+completion 完成<br/>
+putvalue 填入值<br/>
+assert 断言<br/>
+envrec 环境<br/>
+declarative 声明的<br/>
+iterate 迭代<br/>
+enumerate 列举<br/>
+iterationKind 迭代类<br/>
+iterate 同步迭代<br/>
+async-iterate 异步迭代<br/>
+LexicalEnvironment 词汇环境<br/>
+CreateMutableBinding 创建可变的结构<br/>
+assignment 分配<br/>
+lexicalBinding 词汇绑定<br/>
+varBinding 变容<br/>
+destructuring 解构<br/>
+AssignmentProperty 转让财产<br/>
+IdentifierReference 标识参考<br/>
+
+
