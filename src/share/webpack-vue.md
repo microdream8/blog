@@ -308,8 +308,6 @@ npm i -D  css-loader style-loader url-loader postcss-loader autoprefixer
 
 在webpack.config.js中增加配置
 ```
-npm i -D  css-loader style-loader file-loader url-loader postcss-loader autoprefixer
-```
 // ...
 {
     test: /\.css$/,
