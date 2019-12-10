@@ -37,5 +37,34 @@ collapsable: true
 - boiler plate 锅炉钢板；做成纸型送来的新闻稿
 - hurdle 障碍
 - scenario 设想;方案;脚本
+- scenario 设想;方案;脚本
+- scope 范围
+- experience 经验；经历
+- executes 施行，贯彻
+- scenes 场景
+- revisit 再访问
+- bogged down 陷入困境；停滞
+- literal 文字的
+- modified 改进的
+- exposed 暴露的
+- ordinary 普通的
+- manual 说明书
+- implementation 实现
+- oriented 使朝向，使面对
+- procedural 程序上的
+- standard 标准；水准
+- roughly 粗糙地
+- divided into 把……分成
+- integer 整数
+- corresponding 相当的
+- Similarly 类似地
+- concepts 概念
+- interchangeably 可交换地
+- equivalent 相等的；等价的
+- convert from 转换
+- factorial 阶乘的
+- codebase 代码库
+- instructive 有益的
+- convention 协定；习俗
 
 ## 源码仓库readme
