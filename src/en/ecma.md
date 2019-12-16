@@ -74,6 +74,18 @@ collapsable: true
 - distinct 清晰的 
 - destructor 自毁
 
+## 7
+- permitted  允许；（使）有可能；批准；可能有；允许有 
+- actual 真实的，实际的；现行的，目前的
+- regardless 不管的，不顾的；不注意的
+- equivalent 相等的；等价的；等效的；等量的；同意义的
+- normalization 正常化；标准化；正规化；常态化
+- identifiers 治疗；对待；招待；处理
+- literal 文字的；逐字的；无夸张的
+- identifiers 标识符；标示符；识别码
+- explicitly 明确地；明白地 
+- numeric 数值的（等于 numerical）；数字的
+
 
 sequence 系列; 一连串; 顺序; 次序<br/>
 surrogate 替代的; 代用的<br/>
