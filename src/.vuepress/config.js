@@ -20,6 +20,7 @@ module.exports = {
           { text: '深入webpack', link: '/share/webpack' },
           { text: 'webpack随手记', link: '/share/webpack-note' },
           { text: 'webpack配置vue', link: '/share/webpack-vue' },
+          { text: 'webpack入门', link: '/share/webpack-base' },
           { text: '公众号开发总结', link: '/share/wechat' },
           { text: '深入浅出前端脚手架', link: '/share/scaffold' },
           { text: '移动端性能优化(一)', link: '/share/optimize' },
