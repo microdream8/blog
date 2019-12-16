@@ -34,12 +34,32 @@ collapsable: true
 - multiple 多重的；多样的；许多的
 - explaining 解释
 - syntax 语法
-- dependencies  依赖性，相关性
+- dependency  依赖性，相关性
 - flexibility 灵活性；弹性；适应性
 - verbose 啰嗦的
 - technique 技巧，技术
 - environment 环境，外界
 - Scenarios 脚本 情节
+- separate 单独的
+- combination 结合
+- discouraged 气馁
+- execution 执行
+- opportunity 机会
+- greatly 极大的
+- benefit 好处
+- techniques 技术
+- increases 增加
+- exactly 完全
+- specified 指定的
+- provide 提供
+- single 单
+- ensure 确保
+- unique 独特的
+- advanced 先进的
+- complicated 复杂的
+- eventual 最终
+- dynamically 动态
+- variable 变量
 
 ## 配置部分
 - optimization 优化
