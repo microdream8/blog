@@ -37,6 +37,12 @@ module.exports = {
         ]
       },
       {
+        text: '技术积累',
+        items: [
+          { text: 'webpack学习', link: '/technology/webpack'},
+        ]
+      },
+      {
         text: '计算机英语',
         items: [
           { text: 'webpack 英文', link: '/en/webpack'},
@@ -58,6 +64,7 @@ module.exports = {
     sidebar: {
       '/skulpt/': genSidebarConfig('skulpt', ['links', '1']),
       '/scratch/': genSidebarConfig('深入scratch', ['links', '1', 'sb3']),
+      '/technology/': genSidebarConfig('webpack学习', ['ltb', 'jy', 'gxl', 'yh', 'xd']),
     }
   }
 }
