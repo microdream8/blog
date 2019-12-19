@@ -86,6 +86,30 @@ collapsable: true
 - explicitly 明确地；明白地 
 - numeric 数值的（等于 numerical）；数字的
 
+## 8
+- algorithms  算法；算法式 
+- manipulate 操纵；操作；巧妙地处理；篡改
+- clause 条款；[计] 子句
+- subclassified  将…归入亚纲
+- notation  符号；乐谱；注释；记号法
+- shorthand 速记；速记法
+- refers  参考
+- corresponds 符合，一致；相应；通信
+- characterized 以…为特点的 
+- entity 实体；存在；本质
+
+## 9
+- unsigned 无符号的；未签名的 
+- integer 整数
+- textual 本文的；按原文的
+- treated as 对待；把…看作…
+- unit 单位，单元
+- occupying 占领
+- nonnegative  adj. 正的，非负的
+- operations n. 运营；运作；业务操作
+- interpret vt. 说明；口译 
+- inclusive adj. 包含的，包括的；包含全部费用的； 
+
 
 sequence 系列; 一连串; 顺序; 次序<br/>
 surrogate 替代的; 代用的<br/>
