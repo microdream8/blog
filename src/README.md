@@ -1,5 +1,5 @@
 ---
-title: wecode 前端团队
+title: gxl 前端团队技术博客
 home: true
 heroImage: /img/logo.png
 actionText: 开始学习
