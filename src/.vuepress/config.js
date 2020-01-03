@@ -42,16 +42,20 @@ module.exports = {
           { text: 'webpack学习', link: '/technology/webpack'},
         ]
       },
-      {
-        text: '计算机英语',
-        items: [
-          { text: 'webpack 英文', link: '/en/webpack'},
-          { text: 'npm 英文', link: '/en/npm'},
-          { text: 'skulpt 英文', link: '/en/skulpt'},
-          { text: 'scratch 英文', link: '/en/scratch'},
-          { text: 'ecma 英文', link: '/en/ecma'},
-        ]
-      },
+      // {
+      //   text: '移动端',
+      //   items: [
+      //     // { text: 'webpack 英文', link: '/en/webpack'},
+      //   ]
+      // },
+      // {
+      //   text: 'webpack学习'
+      // },
+      // vue, js(ecma6), react, 面试（经典题型）
+      // 手写代码（Promise mini-vue router axios）
+      // 常用工具函数，框架， 脚手架
+      // 经验积累
+      // 理想梦想
       {
         text: '常用网址',
         link: '/url/fe'
