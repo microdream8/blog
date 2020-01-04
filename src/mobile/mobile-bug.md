@@ -319,5 +319,14 @@ a, a:hover, a:active, a:visited, a:link, a:focus {
 ```css
 -webkit-tap-highlight-color: rgba(0,0,0,0);
 ```
-
+31、js 监听ios手机键盘弹起和收起的事件
+```js
+document.body.addEventListener('focusin', () =>{  // 软键盘弹起事件 
+    console.log("键盘弹起");
+ 
+})
+document.body.addEventListener('focusout', () =>{  // 软键盘关闭事件 
+    console.log("键盘收起");
+})
+```
 
