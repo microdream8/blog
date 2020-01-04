@@ -16,16 +16,12 @@ module.exports = {
         items: [
           { text: '环境配置', link: '/share/env'},
           { text: 'eslint规则', link: '/share/eslint'},
-          { text: '性能优化', link: '/share/opt'},
+          // { text: '性能优化', link: '/share/opt'},
           { text: '深入webpack', link: '/share/webpack' },
           { text: 'webpack随手记', link: '/share/webpack-note' },
           { text: 'webpack配置vue', link: '/share/webpack-vue' },
           { text: 'webpack入门', link: '/share/webpack-base' },
-          { text: '公众号开发总结', link: '/share/wechat' },
           { text: '深入浅出前端脚手架', link: '/share/scaffold' },
-          { text: '移动端性能优化(一)', link: '/share/optimize' },
-          { text: '移动端性能优化(二)', link: '/share/optimize2' },
-          { text: '移动端的那些坑(一)', link: '/share/mobile-bug' },
           { text: 'markdown语法', link: '/share/md' },
         ]
       },
@@ -42,12 +38,15 @@ module.exports = {
           { text: 'webpack学习', link: '/technology/webpack'},
         ]
       },
-      // {
-      //   text: '移动端',
-      //   items: [
-      //     // { text: 'webpack 英文', link: '/en/webpack'},
-      //   ]
-      // },
+      {
+        text: '移动端',
+        items: [
+          { text: '公众号开发总结', link: '/mobile/wechat' },
+          { text: '移动端性能优化(一)', link: '/mobile/optimize' },
+          { text: '移动端性能优化(二)', link: '/mobile/optimize2' },
+          { text: '移动端的那些坑(一)', link: '/mobile/mobile-bug' }
+        ]
+      },
       // {
       //   text: 'webpack学习'
       // },
