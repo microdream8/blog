@@ -3,12 +3,12 @@ title: '移动端的那些坑（一）'
 sidebar: auto
 collapsable: true
 ---
-## 最近开发移动端比较多，遇到好多坑，总结如下
-```js
+<b>最近开发移动端比较多，遇到好多坑，总结如下</b>
+```html
 1、<input type='button'>背景色在ios中的兼容性，颜色发白
 ```
 解决办法：在全局样式中加入以下代码：<br/>
-```js
+```html
 input[type=button], input[type=submit], input[type=file]
 button { cursor: pointer; -webkit-appearance: none; }
 ```
