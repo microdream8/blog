@@ -281,4 +281,43 @@ document.addEventListener('touchstart', function () {
     document.getElementsByTagName('audio')[0].pause();
 });
 ```
+30、如何用css去掉a标签点击时的背景色
+方法如下：<br/>
+(1) 取消a标签在移动端点击时的蓝色：
+```css
+-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+-webkit-user-select: none;
+-moz-user-focus: none;
+-moz-user-select: none;
+```
+(2) 使用图片作为a标签的点击按钮时，当触发touchstart的时候，往往会有一个灰色的背景：
+```css
+a, a:hover, a:active, a:visited, a:link, a:focus {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    background: none;
+    text-decoration: none;
+}
+```
+(3) 改变选中内容的背景颜色：
+```css
+::selection {
+    background: #FFF;
+    color: #333;
+}
+::-moz-selection {
+    background: #FFF;
+    color: #333;
+}
+::-webkit-selection {
+    background: #FFF;
+    color: #333;
+}
+```
+(4) 去除ios input框点击时的灰色背景：
+```css
+-webkit-tap-highlight-color: rgba(0,0,0,0);
+```
+
 
