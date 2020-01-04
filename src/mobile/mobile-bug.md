@@ -4,10 +4,14 @@ sidebar: auto
 collapsable: true
 ---
 ## 最近开发移动端比较多，遇到好多坑，总结如下
-
-   1、<input type='button'>背景色在ios中的兼容性，颜色发白<br/>
-　　　　解决办法：在全局样式中加入以下代码：<br/>
-　　　　input[type=button], input[type=submit], input[type=file], button { cursor: pointer; -webkit-appearance: none; }<br/>
+```js
+1、<input type='button'>背景色在ios中的兼容性，颜色发白
+```
+解决办法：在全局样式中加入以下代码：<br/>
+```js
+input[type=button], input[type=submit], input[type=file]
+button { cursor: pointer; -webkit-appearance: none; }
+```
 
 　　2、在vue中使用jquery weui中的地区选择器时，通过点击事件来初始化地区选择器，第一次点击无效，第二次点击才触发<br/>
 　　　　解决办法：在mounted生命周期中执行初始化事件，在onClose事件中调用另外一个函数以获取选择器选择的值。这样在其他地方就可以使用这个值了。<br/>
