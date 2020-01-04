@@ -273,7 +273,7 @@ _dealWithImg(file, res) {
 },
 ```
 ::: warning 注意
-注意： import EXIF from 'exif-js';
+import EXIF from 'exif-js';
 :::
 
 
