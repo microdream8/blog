@@ -39,6 +39,13 @@ module.exports = {
         ]
       },
       {
+        text: 'JS开发总结',
+        items: [
+          { text: '图片相关总结', link: '/javascript/img' },
+          { text: '工具函数总结', link: '/javascript/tool-fun' }
+        ]
+      },
+      {
         text: '移动端',
         items: [
           { text: '公众号开发总结', link: '/mobile/wechat' },
