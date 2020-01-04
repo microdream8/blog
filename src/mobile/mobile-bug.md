@@ -28,31 +28,33 @@ border-radius: 0; /* 解决ios上输入框圆角问题 */<br/>
 按钮触发：按钮我用的是div，pc端能正常使用，ios上失效（安卓不清楚，没测过）。折腾好久，最后尝试将div换成button按钮后，pc、ios均正常<br/>
 
 6、swiper轮播图（4.x版本）时遇到的问题：<br/>
- （1）、设置slider容器能够同时显示的slides数量：可以设置为数字（可为小数，小数不可loop），或者 'auto'则自动根据slides的宽度来设定数量<br/>
- （2）、slide能够根据惯性滑动：设置freeMode为true<br/>
- （3）、设定初始化时激活slide的索引：设置initialSlide的值，默认为0<br/>
- （4）、当slider容器中同时显示多个slides时，让激活的slides居中：设置centeredSlides为true<br/>
- （5）、分页器样式设置：设置pagination对象的type属性，当type值为bullets时，会以圆点显示；当type值为fraction时，则会以分式形式显示（形如：1/3、2/3、3/3等）；当type为progressBar时，则会以进度条形式显示，即切换slide时，上方会显示进度条<br/>
- （6）、swiper默认显示三个，中间显示全部，两边显示部分：设置如下：<br/>
+ （1）设置slider容器能够同时显示的slides数量：可以设置为数字（可为小数，小数不可loop），或者 'auto'则自动根据slides的宽度来设定数量<br/>
+ （2）slide能够根据惯性滑动：设置freeMode为true<br/>
+ （3）设定初始化时激活slide的索引：设置initialSlide的值，默认为0<br/>
+ （4）当slider容器中同时显示多个slides时，让激活的slides居中：设置centeredSlides为true<br/>
+ （5）分页器样式设置：设置pagination对象的type属性，当type值为bullets时，会以圆点显示；当type值为fraction时，则会以分式形式显示（形如：1/3、2/3、3/3等）；当type为progressBar时，则会以进度条形式显示，即切换slide时，上方会显示进度条<br/>
+ （6）swiper默认显示三个，中间显示全部，两边显示部分：设置如下：<br/>
 　　　 　spaceBetween: 10 // 表示每个slide间的间隔<br/>
 　　　 　slidesPerView：1.2 // 设置slider容器同时显示slides的数量。<br/>
 　　　　 centeredSlides：true // 让中间显示的slides居中<br/>
- （7）、swiper动态加载数据轮播滑动异常，也无法自动轮播（自动轮播的前提是要设置autoplay:true）：需要设置observer:true来启动动态检查器，这样就可以自动自动轮播了，也能手动操作了，然而新的问题来了，手动滑动后，离开滑块，无法继续自动轮播，需要设置autoplay:{disableOnInteraction:false}现在就可以正常轮播了。如果想要循环轮播，则添加loop:true（此时新的bug出现了，就是轮播的时候跳过了第一张跟最后一张，目前还未解决）。<br/>
+ （7）swiper动态加载数据轮播滑动异常，也无法自动轮播（自动轮播的前提是要设置autoplay:true）：需要设置observer:true来启动动态检查器，这样就可以自动自动轮播了，也能手动操作了，然而新的问题来了，手动滑动后，离开滑块，无法继续自动轮播，需要设置autoplay:{disableOnInteraction:false}现在就可以正常轮播了。如果想要循环轮播，则添加loop:true（此时新的bug出现了，就是轮播的时候跳过了第一张跟最后一张，目前还未解决）。<br/>
 
 7、vue遮罩层阻止默认滚动事件（适用于遮罩层本身没有滚动事件的，否则本身的滚动事件也会被阻止）：@touchmove.prevent<br/>
 
-8、h5页面点击元素会出现灰色背景：body {-webkit-tap-highlight-color: rgba(255, 255, 255, 0);}<br/>
-
+8、h5页面点击元素会出现灰色背景：
+```css
+body {-webkit-tap-highlight-color: rgba(255, 255, 255, 0);}
+```
 9、发现页面在ios上能正常上下滑动，而安卓上不行，pc端也不能滑动，但是通过鼠标滚动是可行的，这时候有可能是css文件中加入了touch-action:none导致的，这句代码作用是阻止页面滚动，将它去掉就好了。坑爹的，困扰我好久了。<br/>
 
 10、ios上双击强制缩放问题：<br/>
-
-解决办法：*{touch-action: manipulation}   // 该方法还能移除整个文档的触发延迟，对于IE10，需要使用-ms-touch-action<br/>
-
+```css
+*{touch-action: manipulation}   // 该方法还能移除整个文档的触发延迟，对于IE10，需要使用-ms-touch-action
+```
 11、vue图片懒加载（vue-lazeload）,不能动态切换图片（如，切换tab时，图片无法动态改变）<br/>
-
-解决办法：为每个img标签添加一个key属性。<img v-lazy="imgUrl" :key="imgUrl"><br/>
-
+```css
+<img v-lazy="imgUrl" :key="imgUrl">  // 为每个img标签添加一个key属性。
+```
 12、使用translate导致元素内字体模糊：<br/>
 
 原因：translate中的参数为非整数。常见于translateX(百分比)、translateY(百分比), translate(百分比,百分比)。<br/>
