@@ -44,6 +44,7 @@ module.exports = {
           { text: '图片相关总结', link: '/javascript/img' },
           { text: '工具函数总结', link: '/javascript/tool-fun' },
           { text: '手写代码', link: '/javascript/write-code' },
+          { text: 'js继承', link: '/javascript/inherit' },
         ]
       },
       {
