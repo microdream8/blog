@@ -45,6 +45,7 @@ module.exports = {
           { text: '工具函数总结', link: '/javascript/tool-fun' },
           { text: '手写代码', link: '/javascript/write-code' },
           { text: 'js继承', link: '/javascript/inherit' },
+          { text: '遇到的坑', link: '/javascript/js-bug' },
         ]
       },
       {
