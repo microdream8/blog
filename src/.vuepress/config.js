@@ -2,7 +2,7 @@ module.exports = {
   base: '/blog/',
   dest: 'docs',
   title:'lei哥的技术博客',
-  description:'致力于利用科技的力量，让孩子们学习编程的过程更轻松、更有趣！',
+  description:'当你处于一个上升状态时，你会体会到工作带给你的成就感和物质回报，你不会想回头多看一眼那些努力挣扎却又收效甚微的过往，你只会感叹为什么没有早点开始。',
   head:[
     ['link', { rel: 'icon', href: 'favicon.ico' }],
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
