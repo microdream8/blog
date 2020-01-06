@@ -57,6 +57,12 @@ module.exports = {
           { text: '移动端的那些坑(一)', link: '/mobile/mobile-bug' }
         ]
       },
+      {
+        text: '跨平台',
+        items: [
+          { text: 'Electron初探', link: '/crossplatform/electtron-base' }
+        ]
+      },
       // {
       //   text: 'webpack学习'
       // },
