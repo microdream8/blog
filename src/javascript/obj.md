@@ -214,7 +214,7 @@ function CreatePerson(name,age){
 }
 // 我们把公有的方法放到函数的原型链上
 CreatePerson.prototype.showName = function(){
-            console.log('我的名字是：'+this.name)
+    console.log('我的名字是：'+this.name)
 }  
 var person1 = new CreatePerson('小明',25) 
 var person2 = new CreatePerson('小华',24)
