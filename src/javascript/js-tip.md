@@ -398,10 +398,104 @@ https://www.jianshu.com/p/be7c95714586<br/>
 https://www.jianshu.com/p/72156bc03ac1<br/>
 
 ### js es6 map 与 原生对象区别
-object和Map存储的都是键值对组合
-但是：object的键的类型是字符串;map的键的类型可以是任意类型
-另外注意，object获取键值使用Object.keys（返回数组）；
-Map获取键值使用 map变量.keys() (返回迭代器)。
+object和Map存储的都是键值对组合<br/>
+但是：object的键的类型是字符串;map的键的类型可以是任意类型<br/>
+另外注意，object获取键值使用Object.keys（返回数组）；<br/>
+Map获取键值使用 map变量.keys() (返回迭代器)。<br/>
+
+### js实现文件切片上传，断点续传
+思路很简单，拿到文件，保存文件唯一性标识，切割文件，分段上传，每次上传一段，根据唯一性标识判断文件上传进度，直到文件的全部片段上传完毕。<br/>
+参考：https://segmentfault.com/a/1190000009448892<br/>
+
+### Javascript请求性能——防抖和节流
+在前端开发中，会有一部分用户的行为会频繁的触发事件执行，而对于DOM操作、资源加载等耗费性能的处理，很有可能造成页面卡顿，甚至浏览器崩溃。函数节流（throttle）和函数防抖（debounce）就是为了处理类似需求应运而生的。<br/>
+1. 防抖<br/>
+函数防抖就是函数在频繁需要触发情况时，只有等足够空闲的时间才去执行一次。好像公交车司机等人都上车以后才出站一样。<br/>
+比如我们在做搜索框的时候，要根据搜索的内容进行请求查找出相关的内容，此时我们在给输入框绑定oninput事件而不做防抖处理的话，每输入一个字就会进行一次处理。比如我想搜索abc，那就会输入a的时候触发请求数据一次，ab的时候触发请求数据一次，然后才是abc，但往往前两次是不需要的，而且频繁的进行请求也会影响性能，此时我们就需要进行防抖处理。<br/>
+```js
+<input type="text" name="search" id="inp">
+<script>
+    var inp = document.getElementById('inp');
+    inp.oninput = debounce(handle, 300);
+
+    function handle(e) {
+        console.log(this.value, e);
+    }
+
+    /*
+        防抖函数：
+        handle：需要调用的函数
+        delay：延迟时间
+    */
+    function debounce(handle, delay) {
+        var timer = null;
+        return function () {
+            var _this = this, _arg = arguments;//谁调用此方法,this就指向谁
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                handle.apply(_this, _arg);
+            }, delay);
+        }
+    }
+</script>
+```
+<br/>
+
+2. 节流
+函数节流就是预定一个函数只有在大于等于执行周期的时候才去执行，周期内调用不执行。就好像水滴攒到一定程度才会落下。主要应用于：抢购疯狂点击、页面滚动等<br/>
+
+```js
+<div>0</div>
+<button id="btn">click</button>
+<script>
+    var btn = document.getElementById('btn'),
+        div = document.getElementsByTagName('div')[0];
+    btn.onclick = throttle(handle, 1000);
+
+    function handle() {
+        div.innerHTML = parseInt(div.innerHTML) + 1;
+    }
+
+    /*
+        节流函数
+        handle:调用的函数
+        wait:等待时间（毫秒）
+    */
+    function throttle(handle, wait) {
+        var lastTime = 0;
+        return function () {
+            //new Date().getTime()从1970到当前所过去的时间（毫秒）
+            var nowTime = new Date().getTime();
+            //时间差大于等于等待时间，就去执行函数
+            if (nowTime - lastTime >= wait) {
+                handle.apply(this, arguments);
+                lastTime = nowTime;
+            }
+        }
+    }
+</script>
+```
+
+### 搜索请求中文如何请求
+前台需要对中文参数进行编码，调用js方法encodeURI（url），将url编码，然后请求<br/>
+
+### 通过什么做到并发请求
+用Promise，有Promise.all<br/>
+
+### http1.1时如何复用tcp连接
+在HTTP 1.0中，客户端的每一个HTTP请求都必须通过独立的TCP连接进行处理，而在HTTP 1.1中，对这种方式进行了改进。客户端可以在一个TCP连接中发送多个HTTP请求，这种技术叫做HTTP复用（HTTP Multiplexing）。它与TCP连接复用最根本的区别在于，TCP连接复用是将多个客户端的HTTP请求复用到一个服务器端TCP连接上，而HTTP复用则是一个客户端的多个HTTP请求通过一个TCP连接进行处理。前者是负载均衡设备的独特功能；而后者是HTTP 1.1协议所支持的新功能，目前被大多数浏览器所支持。<br/>
+
+### 浏览器事件流向
+事件传播的顺序对应浏览器的两种事件流模型：捕获型事件流和冒泡型事件流。<br/>
+冒泡型事件流：事件的传播是从最特定的事件目标到最不特定的事件目标。即从DOM树的叶子到根。【推荐】<br/>
+捕获型事件流：事件的传播是从最不特定的事件目标到最特定的事件目标。即从DOM树的根到叶子。<br/>
+
+### 事件的委托（代理 Delegated Events）的原理以及优缺点
+优点是：<br/>
+（1）可以大量节省内存占用，减少事件注册，比如在table上代理所有td的click事件就非常棒<br/>
+（2）可以实现当新增子对象时无需再次对其绑定事件，对于动态内容部分尤为合适<br/><br/>
+缺点是：<br/>
+事件代理的应用常用应该仅限于上述需求下，如果把所有事件都用代理就可能会出现事件误判，即本不应用触发事件的被绑上了事件。<br/>
 
 
 ### 常用设计模式在前端开发中的应用
