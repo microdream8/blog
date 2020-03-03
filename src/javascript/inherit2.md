@@ -146,7 +146,6 @@ for(var prop in cat1) { alert("cat1["+prop+"]="+cat1[prop]); }
 ## 构造函数的继承
 
 今天要介绍的是，对象之间的"继承"的五种方法。<br/>
-今天要介绍的是，对象之间的"继承"的五种方法。<br/>
 ```js
 function Animal(){
     this.species = "动物";
@@ -172,6 +171,10 @@ function Cat(name,color){
 var cat1 = new Cat("大毛","黄色");
 alert(cat1.species); // 动物
 ```
+1）优点<br/>
+简单明了，直接继承超类构造函数的属性和方法<br/>
+2）缺点<br/>
+无法继承原型链上的属性和方法<br/>
 
 ### prototype模式
 第二种方法更常见，使用prototype属性。<br/>

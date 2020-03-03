@@ -49,6 +49,7 @@ module.exports = {
           { text: '面向对象', link: '/javascript/obj' },
           { text: '引用对象', link: '/javascript/yinyong' },
           { text: '遇到的坑', link: '/javascript/js-bug' },
+          { text: 'js各种知识点', link: '/javascript/js-tip' },
         ]
       },
       {
@@ -61,11 +62,17 @@ module.exports = {
         ]
       },
       {
-        text: '跨平台',
+        text: '框架',
         items: [
-          { text: 'Electron初探', link: '/crossplatform/electtron-base' }
+          { text: '框架小知识', link: '/vue/knowledgePoint' }
         ]
       },
+      // {
+      //   text: '跨平台',
+      //   items: [
+      //     { text: 'Electron初探', link: '/crossplatform/electtron-base' }
+      //   ]
+      // },
       // {
       //   text: 'webpack学习'
       // },
