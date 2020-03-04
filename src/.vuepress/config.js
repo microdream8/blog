@@ -50,6 +50,7 @@ module.exports = {
           { text: '引用对象', link: '/javascript/yinyong' },
           { text: '遇到的坑', link: '/javascript/js-bug' },
           { text: 'js各种知识点', link: '/javascript/js-tip' },
+          { text: '异步汇总', link: '/javascript/yibu' },
         ]
       },
       {
