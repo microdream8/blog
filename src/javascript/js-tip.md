@@ -33,19 +33,19 @@ collapsable: true
 3、那就产生了问题：父级那么多子元素，怎么区分事件本应该是哪个子元素的？<br/>
 4、答案是：event对象里记录的有“事件源”，它就是发生事件的子元素。<br/>
 5、它存在兼容性问题，在老的IE下，事件源是 window.event.srcElement，其他浏览器是 event.target<br/>
-6、用事件委托有什么好处呢？<br/>
-7、第一个好处是效率高，比如，不用for循环为子元素添加事件了<br/>
-8、第二个好处是，js新生成的子元素也不用新为其添加事件了，程序逻辑上比较方便<br/>
+用事件委托有什么好处呢？<br/>
+1、第一个好处是效率高，比如，不用for循环为子元素添加事件了<br/>
+2、第二个好处是，js新生成的子元素也不用新为其添加事件了，程序逻辑上比较方便<br/>
 
 
 ## 数组和类数组
 1、类数组定义<br/>
-1）拥有length属性，其它属性（索引）为非负整数（对象中的索引会被当做字符串来处理）；<br/>
-2）不具有数组所具有的方法；<br/>
+&nbsp;&nbsp;1）拥有length属性，其它属性（索引）为非负整数（对象中的索引会被当做字符串来处理）；<br/>
+&nbsp;&nbsp;2）不具有数组所具有的方法；<br/>
 2、类数组转换为数组<br/>
-1）args = Array.prototype.slice.call(arguments)<br/>
-2）[...arrayLike]<br/>
-3）Array.from(arrayLike)<br/>
+&nbsp;&nbsp;1）args = Array.prototype.slice.call(arguments)<br/>
+&nbsp;&nbsp;2）[...arrayLike]<br/>
+&nbsp;&nbsp;3）Array.from(arrayLike)<br/>
 
 ## 数组最大值
 var arr = [1, 2, 3, 2, 1];<br/>
