@@ -40,12 +40,12 @@ collapsable: true
 
 ## 数组和类数组
 1、类数组定义<br/>
-&nbsp;&nbsp;1）拥有length属性，其它属性（索引）为非负整数（对象中的索引会被当做字符串来处理）；<br/>
-&nbsp;&nbsp;2）不具有数组所具有的方法；<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;1）拥有length属性，其它属性（索引）为非负整数（对象中的索引会被当做字符串来处理）；<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;2）不具有数组所具有的方法；<br/>
 2、类数组转换为数组<br/>
-&nbsp;&nbsp;1）args = Array.prototype.slice.call(arguments)<br/>
-&nbsp;&nbsp;2）[...arrayLike]<br/>
-&nbsp;&nbsp;3）Array.from(arrayLike)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;1）args = Array.prototype.slice.call(arguments)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;2）[...arrayLike]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;3）Array.from(arrayLike)<br/>
 
 ## 数组最大值
 var arr = [1, 2, 3, 2, 1];<br/>
