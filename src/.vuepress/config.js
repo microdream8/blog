@@ -85,10 +85,10 @@ module.exports = {
         text: '常用网址',
         link: '/url/fe'
       },
-      {
-        text: 'github',
-        link: 'https://github.com/microdream8'
-      },
+      // {
+      //   text: 'github',
+      //   link: 'https://github.com/microdream8'
+      // },
     ],
     sidebar: {
       '/skulpt/': genSidebarConfig('skulpt', ['links', '1']),

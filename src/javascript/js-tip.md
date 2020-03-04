@@ -152,6 +152,7 @@ FormData是HTML5对象，目前可兼容大多主流的浏览器，但不兼容�
 var formData = new FormData();
 formData.append("name","zhangsna");
 formData.append("age","16");
+// formData.append('student.telephone', this.telephone)  // 嵌套形式
 ```
 这种效果相当于两个表单中input的提交<br/>
 用法2：通过ajax异步提交表单数据，可实现文件上传。<br/>
@@ -183,7 +184,7 @@ formData.append("age","16");
 :::
 
 ## 基本数据类型与引用数据类型
-基本数据类型：string, number, boolean, null, undefined。
+基本数据类型：string, number, boolean, null, undefined。<br/>
 <b>基本数据类型</b><br/>
 说明：<br/>
    基本数据类型的变量是保存在栈内存中的，基本数据类型的值直接在栈内存中存储，值与值之间是独立存在的，修改一个变量不会影响其他的变量。<br/>
@@ -196,7 +197,7 @@ formData.append("age","16");
    当比较两个引用数据类型时，本质上是比较的对象的内存地址，如果两个对象的属性是一模一样的，但是地址不同，也会返回false。<br/>
 
 <b>内存分配和垃圾回收</b><br/>
-一般来说栈内存线性有序存储，容量小，系统分配效率高。而堆内存首先要在堆内存新分配存储区域，之后又要把指针存储到栈内存中，效率相对就要低一些了。<br/>
+一般来说栈内存线性有序存储，容量小，系统分配效率高。而堆内存首先要在堆内存新分配存储区域，之后又要把<b>指针存储到栈内存中</b>，效率相对就要低一些了。<br/>
 垃圾回收方面，栈内存变量基本上用完就回收了，而推内存中的变量因为存在很多不确定的引用，只有当所有调用的变量全部销毁之后才能回收。<br/>
 
 ## JS引擎执行有那几个阶段
@@ -239,7 +240,7 @@ let/const是使用区块作用域；var是使用函数作用域<br/>
 在let/const声明之前就访问对应的变量与常量，会抛出ReferenceError错误；但在var声明之前就访问对应的变量，则会得到undefined<br/>
 根据ES6标准中对于let/const声明的章节13.3.1，有以下的文字说明:<br/>
 The variables are created when their containing Lexical Environment is instantiated but may not be accessed inany way until the variable’s LexicalBinding is evaluated.<br/>
-意思是说由let/const声明的变量，当它们包含的词法环境(Lexical Environment)被实例化时会被创建，但只有在变量的词法绑定(LexicalBinding)已经被求值运算后，才能够被访问。<br/>
+意思是说由<b>let/const声明的变量，当它们包含的词法环境(Lexical Environment)被实例化时会被创建，但只有在变量的词法绑定(LexicalBinding)已经被求值运算后，才能够被访问</b>。<br/>
 说得更明白些，当程序的控制流程在新的作用域(module, function或block作用域)进行实例化时，在此作用域中的用let/const声明的变量会先在作用域中被创建出来，但因此时还未进行词法绑定，也就是对声明语句进行求值运算，所以是不能被访问的，访问就会抛出错误。所以在这运行流程一进入作用域创建变量，到变量开始可被访问之间的一段时间，就称之为TDZ(暂时死区)。<br/>
 <br/>
 参照：https://blog.csdn.net/nicexibeidage/article/details/78144138<br/>
@@ -335,9 +336,10 @@ JS延迟加载机制(LazyLoad)：简单来说，就是在浏览器滚动到某�
 5. 扩展：箭头函数<br/>
 
 ### this 是什么
-理解this之前， 先纠正一个观点，this 既不指向函数自身，也不指函数的词法作用域。如果仅通过this的英文解释，太容易产生误导了。它实际是在函数被调用时才发生的绑定，也就是说this具体指向什么，取决于你是怎么调用的函数。<br/>
+理解this之前， 先纠正一个观点，<b>this 既不指向函数自身，也不指函数的词法作用域</b>。如果仅通过this的英文解释，太容易产生误导了。它实际是在函数被调用时才发生的绑定，也就是说this具体指向什么，取决于你是怎么调用的函数。<br/>
 ### this 的四种绑定规则
 this的4种绑定规则分别是：默认绑定、隐式绑定、显示绑定、new 绑定。优先级从低到高。<br/><br/>
+
 参考来源：https://segmentfault.com/a/1190000014224541
 
 ## 箭头函数与普通函数的区别
@@ -371,8 +373,8 @@ bar();
 而动态作用域回输出3。<br/>
 为什么会这样，因为当foo()无法找到a的变量引用时，会顺着调用栈在调用foo()的地方查找a,而不是在嵌套的词法作用域中向上查找。由于foo()是在bar()中调用的，引擎会检查bar()的作用域，并在其中找到值为3的变量a。<br/><br/>
 主要区别：<br/>
-词法作用域是在写代码或者说定义时确定的，而动态作用域是在运行时确定的。<br/>
-词法作用域关注函数在何处声明，而动态作用域关注函数从何处调用。<br/>
+<b>词法作用域是在写代码或者说定义时确定的，而动态作用域是在运行时确定的</b>。<br/>
+<b>词法作用域关注函数在何处声明，而动态作用域关注函数从何处调用</b>。<br/>
 
 ## bind、call、apply
 三者都是用于改变函数体内this的指向，但是bind与apply和call的最大的区别是：bind不会立即调用，而是返回一个新函数，称为绑定函数，其内的this指向为创建它时传入bind的第一个参数，而传入bind的第二个及以后的参数作为原函数的参数来调用原函数。<br/>
@@ -391,12 +393,87 @@ apply和call都是为了改变某个函数运行时的上下文而存在的（�
 来源：https://blog.csdn.net/chengbo_x/article/details/83107808
 
 ## js的原型和原型链
-1.每个对象都具有一个名为__proto__的属性；<br/>
+### prototype
+每个函数都有一个 prototype 属性<br/>
+每一个JavaScript对象(null除外)在创建的时候就会与之关联另一个对象，这个对象就是我们所说的原型，每一个对象都会从原型"继承"属性。<br/>
+函数的 prototype 属性指向了一个对象，这个对象正是调用该构造函数而创建的实例的原型，也就是这个例子中的 f1 的原型。prototype带有__proto__和constructor<br/>
+```js
+function Person() {
+
+}
+// 虽然写在注释里，但是你要注意：
+// prototype是函数才会有的属性
+Person.prototype.name = 'Kevin';
+var person1 = new Person();
+var person2 = new Person();
+console.log(person1.name) // Kevin
+console.log(person2.name) // Kevin
+```
+### proto
+每一个JavaScript对象(除了 null )都具有的一个属性，叫__proto__，这个属性会指向了创建该对象的构造函数的原型。<br/>
+```js
+function Person() {
+
+}
+var person = new Person();
+console.log(person.__proto__ === Person.prototype); // true
+```
+<img src="../imgs/js/proto.jpeg" style="width: 80%;" /><br/>
+
+### constructor
+每个原型都有一个 constructor 属性指向关联的构造函数  实例原型指向构造函数<br/>
+由于实例对象可以继承原型对象的属性，所以实例对象也拥有constructor属性，同样指向原型对象对应的构造函数。<br/>
+<img src="../imgs/js/constructor.jpeg" style="width: 80%;" /><br/>
+
+```js
+function Person() {
+
+}
+var person = new Person();
+console.log(person.__proto__ == Person.prototype) // true
+console.log(Person.prototype.constructor == Person) // true
+// 顺便学习一个ES5的方法,可以获得对象的原型
+console.log(Object.getPrototypeOf(person) === Person.prototype) // true
+```
+
+### 实例与原型
+```js
+function Person() {
+
+}
+Person.prototype.name = 'Kevin';
+var person = new Person();
+person.name = 'Daisy';
+console.log(person.name) // Daisy
+delete person.name;
+console.log(person.name) // Kevin
+```
+在这个例子中，我们给实例对象 person 添加了 name 属性，当我们打印 person.name 的时候，结果自然为 Daisy。<br/><br/>
+但是当我们删除了 person 的 name 属性时，读取 person.name，从 person 对象中找不到 name 属性就会从 person 的原型也就是 person.proto ，也就是 Person.prototype中查找，幸运的是我们找到了 name 属性，结果为 Kevin。<br/>
+
+### 原型与原型
+```js
+var obj = new Object();
+obj.name = 'Kevin'
+console.log(obj.name) // Kevin
+```
+<img src="../imgs/js/yuanxing2.jpeg" style="width: 80%;" /><br/>
+
+### 原型链
+JS在创建对象（不论是普通对象还是函数对象）的时候，都有一个叫做__proto__的内置属性，用于指向创建它的函数对象的原型对象prototype。<br/>
+```js
+console.log(Object.prototype.__proto__ === null) // true
+```
+<img src="../imgs/js/yuanxinglian.jpeg" style="width: 80%;" /><br/>
+JavaScript 默认并不会复制对象的属性，相反，JavaScript 只是在两个对象之间创建一个关联，这样，一个对象就可以通过委托访问另一个对象的属性和函数，所以与其叫继承，委托的说法反而更准确些<br/>
+
+<!-- 1.每个对象都具有一个名为__proto__的属性；<br/>
 2.每个构造函数（构造函数标准为大写开头，如Function()，Object()等等JS中自带的构造函数，以及自己创建的）都具有一个名为prototype的方法（注意：既然是方法，那么就是一个对象（JS中函数同样是对象），所以prototype同样带有__proto__属性）；<br/>
 3.每个对象的__proto__属性指向自身构造函数的prototype；<br/>
 <br/>
+详细参考：<br/>
 https://www.jianshu.com/p/be7c95714586<br/>
-https://www.jianshu.com/p/72156bc03ac1<br/>
+https://www.jianshu.com/p/72156bc03ac1<br/> -->
 
 ## js es6 map 与 原生对象区别
 object和Map存储的都是键值对组合<br/>
