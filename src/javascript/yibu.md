@@ -691,5 +691,88 @@ module.exports = Promise;
 ```
 
 来源：https://juejin.im/post/5b2f02cd5188252b937548ab<br/>
+<br/><br/>
 
+## Async / await
 
+### 概念
+async 函数是 Generator 函数的语法糖。使用 关键字 async 来表示，在函数内部使用 await 来表示异步。相较于 Generator，async 函数的改进在于下面四点：<br/>
+内置执行器。Generator 函数的执行必须依靠执行器，而 async 函数自带执行器，调用方式跟普通函数的调用一样<br/>
+更好的语义。async 和 await 相较于 * 和 yield 更加语义化<br/>
+更广的适用性。co 模块约定，yield 命令后面只能是 Thunk 函数或 Promise对象。而 async 函数的 await 命令后面则可以是 Promise 或者 原始类型的值（Number，string，boolean，但这时等同于同步操作）<br/>
+返回值是 Promise。async 函数返回值是 Promise 对象，比 Generator 函数返回的 Iterator 对象方便，可以直接使用 then() 方法进行调用<br/>
+async是ES7新出的特性，表明当前函数是异步函数，不会阻塞线程导致后续代码停止运行。<br/>
+<br/>
+简而言之：<br/>
+async/await 是异步代码的新方式<br/>
+async/await 基于 Promise 实现<br/>
+async/await 使得异步代码更像同步代码<br/>
+await 只能用在 async 函数中，不能用在普通函数中<br/><br/>
+
+#### async/await 的优势在于处理 then 链：
+单一的 Promise 链并不能发现 async/await 的优势，但是，如果需要处理由多个 Promise 组成的 then 链的时候，优势就能体现出来了（很有意思，Promise 通过 then 链来解决多层回调的问题，现在又用 async/await 来进一步优化它）。<br/>
+
+### 用法
+async 函数返回一个 Promise 对象，可以使用 then 方法添加回调函数。当函数执行的时候，一旦遇到 await 就会先返回一个 Promise 对象，等到异步操作完成，再接着执行函数体内后面的语句。<br/>
+
+```js
+function timeout(ms) {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms);
+  });
+}
+async function asyncPrint(value, ms) {
+  await timeout(ms);
+  console.log(value);
+}
+asyncPrint('hello world', 50);
+```
+
+### 错误处理
+
+方法一<br/>
+```js
+function timeout(ms) {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms);
+  });
+}
+async function asyncPrint(value, ms) {
+  await timeout(ms);
+  return value
+}
+asyncPrint('hello world', 5000).then(result=> {
+  console.log(result);
+}).catch(err=>{
+  console.log(err)
+})
+```
+
+方法二<br/>
+```js
+function timeout(ms) {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms);
+  });
+}
+async function asyncPrint(value, ms) {
+  try{
+    await timeout(ms);
+    console.log(value)
+  }catch(err){
+    console.log(err)
+  }
+  await timeout(ms);
+  return value
+}
+asyncPrint('hello world', 5000)
+```
+
+await 后面紧跟着的最好是一个耗时的操作或者是一个异步操作(当然非耗时的操作也可以的，但是就失去意义了)<br/>
+如果 await 后面的异步操作出错，那么等同于 async 函数返回的 Promise 对象被 reject<br/>
+
+## callback 与 Promise的区别
+js中的callback与promise的区别实际就是宽度和深度的区别<br/><br/>
+1. callback函数处理异步：代码逻辑复杂，可读性差----回调地狱；不可return；<br/>
+2. promise处理异步：对比callback，易读，可以return，不需要层层传递callback；处理多个异步等待合并<br/>
+3. async，await--ES2017 ，promise的语法糖<br/>
