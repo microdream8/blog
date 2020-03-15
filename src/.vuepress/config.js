@@ -42,8 +42,6 @@ module.exports = {
         text: 'JS开发总结',
         items: [
           { text: '图片相关总结', link: '/javascript/img' },
-          { text: '工具函数总结', link: '/javascript/tool-fun' },
-          { text: '手写代码', link: '/javascript/write-code' },
           { text: 'js继承', link: '/javascript/inherit' },
           { text: 'js继承(二)', link: '/javascript/inherit2' },
           { text: '面向对象', link: '/javascript/obj' },
@@ -53,6 +51,8 @@ module.exports = {
           { text: '异步汇总', link: '/javascript/yibu' },
           { text: '跨域相关', link: '/javascript/core' },
           { text: 'ES6知识', link: '/javascript/es6' },
+          { text: '工具函数总结', link: '/javascript/tool-fun' },
+          { text: '手写代码', link: '/javascript/write-code' },
         ]
       },
       {
