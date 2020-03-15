@@ -52,6 +52,7 @@ module.exports = {
           { text: 'js各种知识点', link: '/javascript/js-tip' },
           { text: '异步汇总', link: '/javascript/yibu' },
           { text: '跨域相关', link: '/javascript/core' },
+          { text: 'ES6知识', link: '/javascript/es6' },
         ]
       },
       {
