@@ -105,6 +105,7 @@ class Box{
 var obj=new Box();
 console.log(obj.xixi);//我是一只小小小小鸟！哦
 ```
+
 <br/>
 constructor中定义的属性可以称为实例属性（即定义在this对象上），constructor外声明的属性都是定义在原型上的，可以称为原型属性（即定义在class上)。hasOwnProperty()函数用于判断属性是否是实例属性。其结果是一个布尔值， true说明是实例属性，false说明不是实例属性。in操作符会在通过对象能够访问给定属性时返回true,无论该属性存在于实例中还是原型中。<br/>
 
