@@ -776,3 +776,30 @@ js中的callback与promise的区别实际就是宽度和深度的区别<br/><br/
 1. callback函数处理异步：代码逻辑复杂，可读性差----回调地狱；不可return；<br/>
 2. promise处理异步：对比callback，易读，可以return，不需要层层传递callback；处理多个异步等待合并<br/>
 3. async，await--ES2017 ，promise的语法糖<br/>
+
+## 附录：原生ajax
+```js
+如何创建Ajax
+XMLHttpRequest对象的工作流程
+==========兼容性写法===========
+var xmlHttp = null;
+if(window.XMLHttpRequset) {
+	// IE7+,Firefox,Chrome,Safari,Opera
+	xmlHttp = new XMLHttpRequset();
+}
+else {
+	// IE5,IE6
+	xmlHttp = new ActiveXObject("Microsoft.XMLHTTP")
+}
+兼容性处理
+事件的触发条件
+xmlHttp.onreadystatechange = function() {
+	if(xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+		responseText、responseXML
+	}
+}
+事件的触发顺序
+======================注意=================
+如果是POST请求则需要添加头
+xmlHttp.setRequestHeader("Content-type": "application/x-www-form-urlencoded")
+```

@@ -96,7 +96,7 @@ module.exports = {
     sidebar: {
       '/skulpt/': genSidebarConfig('skulpt', ['links', '1']),
       '/scratch/': genSidebarConfig('深入scratch', ['links', '1', 'sb3']),
-      '/technology/': genSidebarConfig('webpack学习', ['ltb', 'jy', 'gxl', 'yh', 'xd']),
+      // '/technology/': genSidebarConfig('webpack学习', ['ltb', 'jy', 'gxl', 'yh', 'xd']),
     }
   }
 }

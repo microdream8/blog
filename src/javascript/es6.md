@@ -5,6 +5,18 @@ collapsable: true
 ---
 # ES6备忘录
 
+## 理解es6中的暂时性死区
+在ES6的新特性中，最容易看到TDZ作用就是在let/const的使用上，let/const与var的主要不同有两个地方:<br/>
+let/const是使用区块作用域；var是使用函数作用域<br/>
+在let/const声明之前就访问对应的变量与常量，会抛出ReferenceError错误；但在var声明之前就访问对应的变量，则会得到undefined<br/>
+根据ES6标准中对于let/const声明的章节13.3.1，有以下的文字说明:<br/>
+The variables are created when their containing Lexical Environment is instantiated but may not be accessed inany way until the variable’s LexicalBinding is evaluated.<br/>
+意思是说由<b>let/const声明的变量，当它们包含的词法环境(Lexical Environment)被实例化时会被创建，但只有在变量的词法绑定(LexicalBinding)已经被求值运算后，才能够被访问</b>。<br/>
+说得更明白些，当程序的控制流程在新的作用域(module, function或block作用域)进行实例化时，在此作用域中的用let/const声明的变量会先在作用域中被创建出来，但因此时还未进行词法绑定，也就是对声明语句进行求值运算，所以是不能被访问的，访问就会抛出错误。所以在这运行流程一进入作用域创建变量，到变量开始可被访问之间的一段时间，就称之为TDZ(暂时死区)。<br/>
+<br/>
+- [参照](https://blog.csdn.net/nicexibeidage/article/details/78144138)
+
+
 ## class类
 
 传统的javascript中只有对象，没有类的概念。它是基于原型的面向对象语言。原型对象特点就是将自身的属性共享给新对象。这样的写法相对于其它传统面向对象语言来讲，很有一种独树一帜的感脚！非常容易让人困惑！<br/>
@@ -129,6 +141,11 @@ class B extends A {
 注意，super虽然代表了父类A的构造函数，但是返回的是子类B的实例，即super内部的this指的是B，因此super()在这里相当于A.prototype.constructor.call(this)。<br/>
 
 
+### Class与JS构造函数的区别
+1. 箭头函数不能被直接命名，不过允许它们赋值给一个变量
+2. 箭头函数不能用做构造函数，你不能对箭头函数使用new关键字
+3. 箭头函数也没有prototype属性箭头函数绑定了词法作用域，不会修改this的指向（**最大特点**）
+4. 箭头函数的作用域不能通过.call、.apply、.bind等语法来改变，这使得箭头函数的上下文将永久不变
 
 
 ## Set和WeakSet

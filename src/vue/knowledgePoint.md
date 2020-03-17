@@ -6,6 +6,287 @@ collapsable: true
 
 # 框架相关知识点
 
+## MVVM
+### 什么是MVVM
+MVVM 是 Model-View-ViewModel 的缩写。mvvm 是一种设计思想。Model 层代表数据模型，也可以在 Model 中定义数据修改和操作的业务逻辑；View 代表 UI 组件，它负责将数据模型转化成 UI 展现出来，ViewModel 是一个同步 View 和 Model 的对象。
+
+在 MVVM 架构下，View 和 Model 之间并没有直接的联系，而是通过 ViewModel 进行交互，Model 和 ViewModel 之间的交互是双向的， 因此 View 数据的变化会同步到 Model 中，而 Model 数据的变化也会立即反应到 View 上。
+ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而 View 和 Model 之间的同步工作完全是自动的，无需人为干涉，因此开发者只需关注业务逻辑，不需要手动操作 DOM, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。
+
+### mvvm 和 mvc 区别
+mvc 和 mvvm 其实区别并不大。都是一种设计思想。主要就是 mvc 中 Controller 演变成 mvvm 中的 viewModel。mvvm 主要解决了 mvc 中大量的 DOM 操作使页面渲染性能降低，加载速度变慢，影响用户体验。和当 Model 频繁发生变化，开发者需要主动更新到 View 。
+
+## vue原理相关
+### vue 的优点
+* 低耦合。视图（View）可以独立于 Model 变化和修改，一个 ViewModel 可以绑定到不同的"View"上，当 View 变化的时候 Model 可以不变，当 Model 变化的时候 View 也可以不变。
+* 可重用性。你可以把一些视图逻辑放在一个 ViewModel 里面，让很多 view 重用这段视图逻辑。
+* 独立开发。开发人员可以专注于业务逻辑和数据的开发（ViewModel），设计人员可以专注于页面设计，使用 Expression Blend 可以很容易设计界面并生成 xml 代码。
+* 可测试。界面素来是比较难于测试的，而现在测试可以针对 ViewModel 来写。
+
+### vue的生命周期
+
+beforeCreate是new Vue()之后触发的第一个钩子，在当前阶段data、methods、computed以及watch上的数据和方法都不能被访问。
+
+created在实例创建完成后发生，当前阶段已经完成了数据观测，也就是可以使用数据，更改数据，在这里更改数据不会触发updated函数。可以做一些初始数据的获取，在当前阶段无法与Dom进行交互，如果非要想，可以通过vm.$nextTick来访问Dom。
+
+beforeMount发生在挂载之前，在这之前template模板已导入渲染函数编译。而当前阶段虚拟Dom已经创建完成，即将开始渲染。在此时也可以对数据进行更改，不会触发updated。
+
+mounted在挂载完成后发生，在当前阶段，真实的Dom挂载完毕，数据完成双向绑定，可以访问到Dom节点，使用$refs属性对Dom进行操作。
+
+beforeUpdate发生在更新之前，也就是响应式数据发生更新，虚拟dom重新渲染之前被触发，你可以在当前阶段进行更改数据，不会造成重渲染。
+
+updated发生在更新完成之后，当前阶段组件Dom已完成更新。要注意的是避免在此期间更改数据，因为这可能会导致无限循环的更新。
+
+beforeDestroy发生在实例销毁之前，在当前阶段实例完全可以被使用，我们可以在这时进行善后收尾工作，比如清除计时器。
+
+destroyed发生在实例销毁之后，这个时候只剩下了dom空壳。组件已被拆解，数据绑定被卸除，监听被移出，子实例也统统被销毁。
+
+
+### vue的性能优化
+#### 编码阶段
+* 尽量减少data中的数据，data中的数据都会增加getter和setter，会收集对应的watcher
+* v-if和v-for不能连用
+* 如果需要使用v-for给每项元素绑定事件时使用事件代理
+* SPA 页面采用keep-alive缓存组件
+* 在更多的情况下，使用v-if替代v-show
+* key保证唯一
+* 使用路由懒加载、异步组件
+* 防抖、节流
+* 第三方模块按需导入
+* 长列表滚动到可视区域动态加载
+* 图片懒加载
+#### SEO优化
+* 预渲染
+* 服务端渲染SSR
+#### 打包优化
+* 压缩代码
+* Tree Shaking/Scope Hoisting
+* 使用cdn加载第三方模块
+* 多线程打包happypack
+* splitChunks抽离公共文件
+* sourceMap优化
+#### 用户体验
+* 骨架屏
+* PWA
+
+
+### vue2.x中如何监听数组变化
+受现代 JavaScript 的限制 ，Vue 无法检测到对象属性的添加或删除。由于 Vue 会在初始化实例时对属性执行 getter/setter 转化，所以属性必须在 data 对象上存在才能让 Vue 将它转换为响应式的。但是 Vue 提供了 Vue.set (object, propertyName, value) / vm.$set (object, propertyName, value)  来实现为对象添加响应式属性，那框架本身是如何实现的呢？
+
+我们查看对应的 Vue 源码：vue/src/core/instance/index.js
+
+```js
+export function set (target: Array<any> | Object, key: any, val: any): any {
+  // target 为数组  
+  if (Array.isArray(target) && isValidArrayIndex(key)) {
+    // 修改数组的长度, 避免索引>数组长度导致splcie()执行有误
+    target.length = Math.max(target.length, key)
+    // 利用数组的splice变异方法触发响应式  
+    target.splice(key, 1, val)
+    return val
+  }
+  // key 已经存在，直接修改属性值  
+  if (key in target && !(key in Object.prototype)) {
+    target[key] = val
+    return val
+  }
+  const ob = (target: any).__ob__
+  // target 本身就不是响应式数据, 直接赋值
+  if (!ob) {
+    target[key] = val
+    return val
+  }
+  // 对属性进行响应式处理
+  defineReactive(ob.value, key, val)
+  ob.dep.notify()
+  return val
+}
+```
+我们阅读以上源码可知，vm.$set 的实现原理是：
+
+如果目标是数组，直接使用数组的 splice 方法触发相应式；
+
+如果目标是对象，会先判读属性是否存在、对象是否是响应式，最终如果要对属性进行响应式处理，则是通过调用   defineReactive 方法进行响应式处理（ defineReactive 方法就是  Vue 在初始化对象时，给对象属性采用 Object.defineProperty 动态添加 getter 和 setter 的功能所调用的方法）
+
+```js
+// Vue.set(item[0], 'description', finalStr);  // （arr/obj, name, newvalue) 数组或对象可以具体到某一项
+
+// Vue.set
+Vue.set(vm.items, indexOfItem, newValue)
+// vm.$set，Vue.set的一个别名
+vm.$set(vm.items, indexOfItem, newValue)
+// Array.prototype.splice
+vm.items.splice(indexOfItem, 1, newValue)
+```
+
+### computed 和 watch的区别和运用场景
+
+<b>computed：</b> 是计算属性，依赖其它属性值，并且 computed 的值有缓存，只有它依赖的属性值发生改变，下一次获取 computed 的值时才会重新计算 computed  的值；
+
+<b>watch：</b> 更多的是「观察」的作用，类似于某些数据的监听回调 ，每当监听的数据变化时都会执行回调进行后续操作；
+
+<b>运用场景：</b>
+
+* 当我们需要进行数值计算，并且依赖于其它数据时，应该使用 computed，因为可以利用 computed 的缓存特性，避免每次获取值时，都要重新计算；
+* 当我们需要在数据变化时执行异步或开销较大的操作时，应该使用 watch，使用 watch 选项允许我们执行异步操作 ( 访问一个 API )，限制我们执行该操作的频率，并在我们得到最终结果前，设置中间状态。这些都是计算属性无法做到的。
+
+```js
+exercise: {
+  handler(newV, oldV) {
+    
+  },
+  immediate: true,
+  deep: true,
+},
+'exercise.exerciseMeta.exerciseId': {
+  handler(newV, oldV) {
+    
+  },
+  immediate: true,
+  deep: true,
+}
+```
+
+###  组件中 data 为什么是一个函数
+因为组件是用来复用的，且 JS 里对象是引用关系，如果组件中 data 是一个对象，那么这样作用域没有隔离，子组件中的 data 属性值会相互影响，如果组件中 data 选项是一个函数，那么每个实例可以维护一份被返回对象的独立的拷贝，组件实例之间的 data 属性值不会互相影响；而 new Vue 的实例，是不会被复用的，因此不存在引用对象的问题。
+
+### v-model的原理
+我们在 vue 项目中主要使用 v-model 指令在表单 input、textarea、select 等元素上创建双向数据绑定，我们知道 v-model 本质上不过是语法糖，v-model 在内部为不同的输入元素使用不同的属性并抛出不同的事件：
+
+* text 和 textarea 元素使用 value 属性和 input 事件；
+* checkbox 和 radio 使用 checked 属性和 change 事件；
+* select 字段将 value 作为 prop 并将 change 作为事件。
+
+### vue双向数据绑定的原理
+
+vue.js 是采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。
+
+具体步骤：
+1. 需要observe的数据对象进行递归遍历，包括子属性对象的属性，都加上 setter和getter这样的话，给这个对象的某个值赋值，就会触发setter，那么就能监听到了数据变化
+2. compile解析模板指令，将模板中的变量替换成数据，然后初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加监听数据的订阅者，一旦数据有变动，收到通知，更新视图
+3. Watcher订阅者是Observer和Compile之间通信的桥梁，主要做的事情是:1、在自身实例化时往属性订阅器(dep)里面添加自己2、自身必须有一个update()方法3、待属性变动dep.notice()通知时，能调用自身的update()方法，并触发Compile中绑定的回调，则功成身退。
+4. MVVM作为数据绑定的入口，整合Observer、Compile和Watcher三者，通过Observer来监听自己的model数据变化，通过Compile来解析编译模板指令，最终利用Watcher搭起Observer和Compile之间的通信桥梁，达到数据变化 -> 视图更新；视图交互变化(input) -> 数据model变更的双向绑定效果。
+
+### Proxy与Object.defineProperty的优劣对比
+
+Proxy的优势如下:
+
+* Proxy可以直接监听对象而非属性
+* Proxy可以直接监听数组的变化
+* Proxy有多达13种拦截方法,不限于apply、ownKeys、deleteProperty、has等等是Object.defineProperty不具备的
+* Proxy返回的是一个新对象,我们可以只操作新的对象达到目的,而Object.defineProperty只能遍历对象属性直接修改
+* Proxy作为新标准将受到浏览器厂商重点持续的性能优化，也就是传说中的新标准的性能红利
+
+Object.defineProperty的优势如下:
+
+* 兼容性好,支持IE9
+
+
+### vue中的key到底有什么用
+
+key是为Vue中的vnode标记的唯一id,通过这个key,我们的diff操作可以更准确、更快速
+
+diff算法的过程中,先会进行新旧节点的首尾交叉对比,当无法匹配的时候会用新节点的key与旧节点进行比对,然后超出差异.
+
+diff程可以概括为：oldCh和newCh各有两个头尾的变量StartIdx和EndIdx，它们的2个变量相互比较，一共有4种比较方式。如果4种比较都没匹配，如果设置了key，就会用key进行比较，在比较的过程中，变量会往中间靠，一旦StartIdx>EndIdx表明oldCh和newCh至少有一个已经遍历完了，就会结束比较,这四种比较方式就是首、尾、旧尾新头、旧头新尾.
+
+* 准确: 如果不加key,那么vue会选择复用节点(Vue的就地更新策略),导致之前节点的状态被保留下来,会产生一系列的bug.
+* 快速: key的唯一性可以被Map数据结构充分利用,相比于遍历查找的时间复杂度O(n),Map的时间复杂度仅仅为O(1).
+
+
+## 路由相关
+
+### 路由懒加载
+Vue项目总实现路由按需加载（懒加载）的三种方式：
+
+1. vue异步组件
+2. es6提案的import()
+3. webpack的require.ensure()
+
+```js
+// 一、Vue异步组件技术：
+	{
+		path: '/home',
+		name: 'Home',
+		component: resolve => reqire(['path路径'], resolve)
+	}
+// 二、es6提案的import()
+	const Home = () => import('path路径')
+// 三、webpack提供的require.ensure()
+	{
+		path: '/home',
+		name: 'Home',
+		component: r => require.ensure([],() =>  r(require('path路径')), 'demo')
+	}
+```
+
+### vue路由有几种模式
+1. hash模式
+即地址栏URL中的#符号，它的特点在于：hash 虽然出现URL中，但不会被包含在HTTP请求中，对后端完全没有影响，不需要后台进行配置，因此改变hash不会重新加载页面。
+
+2. history模式
+利用了HTML5 History Interface 中新增的pushState() 和replaceState() 方法（需要特定浏览器支持）。history模式改变了路由地址，因为需要后台配置地址。
+
+
+## axios相关
+### axios相应拦截配置
+
+```js
+// 添加请求拦截器
+axios.interceptors.request.use(function (config) {
+    // 在发送请求之前做些什么
+    return config;
+}, function (error) {
+    // 对请求错误做些什么
+    return Promise.reject(error);
+});
+// 添加响应拦截器
+axios.interceptors.response.use(function (response) {
+    // 对响应数据做点什么
+    return response;
+  }, function (error) {
+    // 对响应错误做点什么
+    return Promise.reject(error);
+  });
+```
+
+
+## vuex相关
+### vuex 是什么？怎么使用？哪种功能场景使用它
+Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。每一个 Vuex 应用的核心就是 store（仓库）。“store” 基本上就是一个容器，它包含着你的应用中大部分的状态 ( state )。
+
+（1）Vuex 的状态存储是响应式的。当 Vue 组件从 store 中读取状态的时候，若 store 中的状态发生变化，那么相应的组件也会相应地得到高效更新。
+（2）改变 store 中的状态的唯一途径就是显式地提交 (commit) mutation。这样使得我们可以方便地跟踪每一个状态的变化。
+主要包括以下几个模块：
+
+* State：定义了应用状态的数据结构，可以在这里设置默认的初始状态。
+* Getter：允许组件从 Store 中获取数据，mapGetters 辅助函数仅仅是将 store 中的 getter 映射到局部计算属性。
+* Mutation：是唯一更改 store 中状态的方法，且必须是同步函数。
+* Action：用于提交 mutation，而不是直接变更状态，可以包含任意异步操作。
+* Module：允许将单一的 Store 拆分为多个 store 且同时保存在单一的状态树中。
+
+### 为什么要用vuex
+
+1. 传参的方法对于多层嵌套的组件将会非常繁琐，并且对于兄弟组件间的状态传递无能为力。
+2. 我们经常会采用父子组件直接引用或者通过事件来变更和同步状态的多份拷贝。以上的这些模式非常脆弱，通常会导致无法维护的代码。
+
+```js
+const store = new Vuex.Store({
+  state: {
+    count: 0
+  },
+  mutations: {
+    increment (state) {
+      state.count++
+    }
+  }
+})
+
+store.commit('increment')
+console.log(store.state.count) // -> 1
+```
+
+
 ## 虚拟dom的概念
 
 ### dom本质
@@ -60,9 +341,17 @@ component diff:在进行tree diff的时候，每一层中组件级别的对比�
 如果对比前后组件类型相同，则暂时认为此组件不需要被更新；<br/>
 如果对比前后组件类型不同，则需要移除旧组件，创建新组件，并追加到页面上。<br/>
 element diff 在进行组件对比的时候，如果两个组件类型相同，则需要进行元素级别的对比。<br/>
-<br/>
-详细参考：<br/>
-https://www.jianshu.com/p/5a5d3195b70c<br/>
+
+### 虚拟DOM的优劣如何
+#### 优点
+* 保证性能下限: 虚拟DOM可以经过diff找出最小差异,然后批量进行patch,这种操作虽然比不上手动优化,但是比起粗暴的DOM操作性能要好很多,因此虚拟DOM可以保证性能下限
+* 无需手动操作DOM: 虚拟DOM的diff和patch都是在一次更新中自动进行的,我们无需手动操作DOM,极大提高开发效率
+* 跨平台: 虚拟DOM本质上是JavaScript对象,而DOM与平台强相关,相比之下虚拟DOM可以进行更方便地跨平台操作,例如服务器渲染、移动端开发等等
+
+#### 缺点
+* 无法进行极致优化: 在一些性能要求极高的应用中虚拟DOM无法进行针对性的极致优化,比如VScode采用直接手动操作DOM的方式进行极端的性能优化
+
+- [详细参考](https://www.jianshu.com/p/5a5d3195b70c)
 
 ## vue中使用v-for时为什么不能用index作为key
 结论：<br/>
@@ -113,9 +402,5 @@ window.addEventListener('popstate', function(e) {
 状态提升，找到容器组件和展示组件，保证唯一数据源和单向数据<br/>
 对于组件的拆分还要做到高内聚低耦合<br/>
 
-## 数组对象更新
-```js
-Vue.set(item[0], 'description', finalStr);  // （arr/obj, name, newvalue) 数组或对象可以具体到某一项
-```
 
 

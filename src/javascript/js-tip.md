@@ -35,7 +35,8 @@ collapsable: true
 5、它存在兼容性问题，在老的IE下，事件源是 window.event.srcElement，其他浏览器是 event.target<br/>
 用事件委托有什么好处呢？<br/>
 1、第一个好处是效率高，比如，不用for循环为子元素添加事件了<br/>
-2、第二个好处是，js新生成的子元素也不用新为其添加事件了，程序逻辑上比较方便<br/>
+2、只在内存中开辟了一块空间，节省资源同时减少了DOM操作，提供性能<br/>
+3、第二个好处是，js<b>新生成的子元素</b>也不用新为其添加事件了，程序逻辑上比较方便<br/>
 
 
 ## 数组和类数组
@@ -234,16 +235,45 @@ JS引擎线程的执行过程的三个阶段：<br/>
 数字签名也是通过私钥进行加密来<br/>
 产生认证符号的。<br/>
 
-## 理解es6中的暂时性死区
-在ES6的新特性中，最容易看到TDZ作用就是在let/const的使用上，let/const与var的主要不同有两个地方:<br/>
-let/const是使用区块作用域；var是使用函数作用域<br/>
-在let/const声明之前就访问对应的变量与常量，会抛出ReferenceError错误；但在var声明之前就访问对应的变量，则会得到undefined<br/>
-根据ES6标准中对于let/const声明的章节13.3.1，有以下的文字说明:<br/>
-The variables are created when their containing Lexical Environment is instantiated but may not be accessed inany way until the variable’s LexicalBinding is evaluated.<br/>
-意思是说由<b>let/const声明的变量，当它们包含的词法环境(Lexical Environment)被实例化时会被创建，但只有在变量的词法绑定(LexicalBinding)已经被求值运算后，才能够被访问</b>。<br/>
-说得更明白些，当程序的控制流程在新的作用域(module, function或block作用域)进行实例化时，在此作用域中的用let/const声明的变量会先在作用域中被创建出来，但因此时还未进行词法绑定，也就是对声明语句进行求值运算，所以是不能被访问的，访问就会抛出错误。所以在这运行流程一进入作用域创建变量，到变量开始可被访问之间的一段时间，就称之为TDZ(暂时死区)。<br/>
-<br/>
-参照：https://blog.csdn.net/nicexibeidage/article/details/78144138<br/>
+## target和currentTarget的区别
+* target在事件流的<b>目标阶段</b>
+* currentTarget在事件流的<b>捕获、目标及冒泡阶段</b>
+只有当事件流处于目标阶段的时候，两个的指向才是一样的，而处于捕获和冒泡阶段的时候，target指向被单击的对象，而currentTarget指向当前事件活动的对象（注册该事件的对象，一般为父级）。
+
+<b>判断点击事件是用户点击触发还是程序触发</b>
+```js
+function judge(){
+	if(event && event.target==event.currentTarget){
+		// 点击事件由用户点击触发
+	}else {
+		// 点击事件由程序调用触发
+	}
+}
+```
+
+## ==和===区别
+* ==， 两边值类型不同的时候，要先进行类型转换，再比较
+* ===，不做类型转换，类型不同的一定不等。
+
+==类型转换过程：
+
+1. 如果类型不同，进行类型转换
+2. 判断比较的是否是 null 或者是 undefined, 如果是, 返回 true .
+3. 判断两者类型是否为 string 和 number, 如果是, 将字符串转换成 number
+4. 判断其中一方是否为 boolean, 如果是, 将 boolean 转为 number 再进行判断
+5. 判断其中一方是否为 object 且另一方为 string、number 或者 symbol , 如果是, 将 object 转为原始类型再进行判断
+
+经典面试题：[] == ![] 为什么是true
+
+转化步骤：
+
+1. !运算符优先级最高，![]会被转为为false，因此表达式变成了：[] == false
+2. 根据上面第(4)条规则，如果有一方是boolean，就把boolean转为number，因此表达式变成了：[] == 0
+3. 根据上面第(5)条规则，把数组转为原始类型，调用数组的toString()方法，[]转为空字符串，因此表达式变成了：'' == 0
+4. 根据上面第(3)条规则，两边数据类型为string和number，把空字符串转为0，因此表达式变成了：0 == 0
+5. 两边数据类型相同，0==0为true
+
+
 
 ## JS异步加载
 1. 同步加载<br/>
@@ -627,6 +657,19 @@ post方法中，会把数据以key value形式发送请求
 5. 浏览器解析html代码，并请求html代码中的资源（如js、css、图片等）
 6. 浏览器对页面进行渲染呈现给用户
 
+### 从输入url到显示页面，经历了什么
+1. 首先，在浏览器地址栏中输入url。
+2. 浏览器先查看浏览器缓存-系统缓存-路由器缓存，如果缓存中有，会直接在屏幕中显示页面内容。若没有，则跳到第三步操作。
+3. 在发送http请求前，需要域名解析(DNS解析)(DNS（域名系统，Domain Name System）是互联网的一项核心服务，它作为可以将域名和IP地址相互映射的一个分布式数据库，能够使人更方便的访问互联网，而不用去记住IP地址。)，解析获取相应的IP地址。
+4. 浏览器向服务器发起tcp连接，与浏览器建立tcp三次握手。（TCP即传输控制协议。TCP连接是互联网连接协议集的一种。）
+5. 握手成功后，浏览器向服务器发送http请求，请求数据包。
+6. 服务器处理收到的请求，将数据返回至浏览器。
+7. 浏览器收到HTTP响应。
+8. 读取页面内容，浏览器渲染，解析html源码。
+9. 生成Dom树、解析css样式、js交互。
+10. 客户端和服务器交互。
+11. ajax查询。
+
 ### http1.1时如何复用tcp连接
 在HTTP 1.0中，客户端的每一个HTTP请求都必须通过独立的TCP连接进行处理，而在HTTP 1.1中，对这种方式进行了改进。客户端可以在一个TCP连接中发送多个HTTP请求，这种技术叫做HTTP复用（HTTP Multiplexing）。它与TCP连接复用最根本的区别在于，TCP连接复用是将多个客户端的HTTP请求复用到一个服务器端TCP连接上，而HTTP复用则是一个客户端的多个HTTP请求通过一个TCP连接进行处理。前者是负载均衡设备的独特功能；而后者是HTTP 1.1协议所支持的新功能，目前被大多数浏览器所支持。<br/>
 
@@ -656,6 +699,38 @@ post方法中，会把数据以key value形式发送请求
 <br/>
 500 Inter Server Error：表示服务器在执行请求时发生了错误，也有可能是web应用存在的bug或某些临时的错误时；<br/>
 503 Server Unavailable：表示服务器暂时处于超负载或正在进行停机维护，无法处理请求；<br/>
+
+## 函数柯里化
+```js
+/**
+ * 函数柯里化
+ * 柯里化（Currying）是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数且返回结果的新函数的技术。
+ */
+// 通用版
+function curry(fn, args) {
+    var length = fn.length;
+    var args = args || [];
+    return function() {
+        newArgs = args.concat(Array.prototype.slice.call(arguments))
+        console.log(newArgs)
+        if(newArgs.length < length) {
+            return curry.call(this, fn, newArgs);
+        } else {
+            return fn.apply(this, newArgs);
+        }
+    }
+}
+function multiFn(a, b, c) {
+    console.log(a * b * c)
+    return a * b * c;
+}
+
+var multi = curry(multiFn);
+multi(2)(3)(4)
+// multi(2, 3, 4)
+// multi(2)(3, 4)
+// multi(2, 3)(4)
+```
 
 ## 常用设计模式在前端开发中的应用
 设计模式，是一套经过前人总结、业务验证并适合于特定业务开发的代码组织方式，可能会有一些同学会认为设计模式没有用，我这里需要指出设计模式并不是万能的只适合于特定业务场景的开发（对我们的业务开发起到一定的指导作用，所有设计模式的目的都是让开发者编写可维护、易扩展的代码），其实你日常开发中或多或少都使用过设计模式，只是你不知道名字而已（如，绑定事件和触发事件这就是一个简单的发布-订阅模式）。<br/><br/>
