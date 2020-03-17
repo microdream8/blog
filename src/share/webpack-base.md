@@ -24,6 +24,7 @@ demo核心代码：
 ```js
 const path = require('path'); 
 var webpack = require("webpack");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const config = {
     entry: {
         main: './src/index.js'
