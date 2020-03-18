@@ -38,6 +38,10 @@ collapsable: true
 2、只在内存中开辟了一块空间，节省资源同时减少了DOM操作，提供性能<br/>
 3、第二个好处是，js<b>新生成的子元素</b>也不用新为其添加事件了，程序逻辑上比较方便<br/>
 
+阻止冒泡：
+
+防止事件冒泡的一种方法是使用 event.cancelBubble 或 event.stopPropagation()（低于 IE 9）
+
 
 ## 数组和类数组
 1、类数组定义<br/>
@@ -731,6 +735,212 @@ multi(2)(3)(4)
 // multi(2)(3, 4)
 // multi(2, 3)(4)
 ```
+
+## 什么是IIFE（立即调用的函数表达式）
+```js
+(function IIFE(){
+    console.log( "Hello!" );
+})();
+// "Hello!"
+```
+常常使用此模式来避免污染全局命名空间，因为在IIFE中使用的所有变量(与任何其他普通函数一样)在其作用域之外都是不可见的。
+
+## 宏任务和微任务
+* macro-task(宏任务)：包括整体代码script，setTimeout，setInterval
+* micro-task(微任务)：Promise，process.nextTick
+
+不同类型的任务会进入不同的Event Queue，有宏任务的队列和微任务的队列。
+
+事件循环的顺序，决定js代码的执行顺序。进入整体代码(宏任务)后，开始第一次循环。接着执行所有的微任务。然后再次从宏任务开始，找到其中一个任务队列执行完毕，再执行所有的微任务。
+
+* 整段代码作为宏任务进入主线程
+* 遇到settimeout，将其回调函数注册后分发到宏任务Event Queue。
+* 遇到了Promise，new Promise立即执行，then函数分发到微任务Event Queue
+* 遇到console.log()，立即执行
+* 第一个宏任务执行结束，看看有什么微任务，发现有then，执行
+* 第二轮循环，发现宏任务settimeout的回调函数，执行。
+* 结束。
+
+### setTimeout、Promise、Async/Await 的区别
+
+其中settimeout的回调函数放到宏任务队列里，等到执行栈清空以后执行； promise.then里的回调函数会放到相应宏任务的微任务队列里，等宏任务里面的同步代码执行完再执行；async函数表示函数里面可能会有异步方法，await后面跟一个表达式，async方法执行时，遇到await会立即执行表达式，然后把表达式后面的代码放到微任务队列里，让出执行栈让同步代码先执行。
+
+
+```js
+async function async1() {
+   console.log('async1 start')
+   await async2()
+   console.log('async1 end')
+}
+async function async2() {
+   console.log('async2')
+}
+console.log('script start')
+setTimeout(function () {
+   console.log('settimeout')
+})
+async1()
+new Promise(function (resolve) {
+   console.log('promise1')
+   resolve()
+}).then(function () {
+   console.log('promise2')
+})
+console.log('script end')
+
+// 答案
+script start
+async1 start
+async2
+promise1
+script end
+async1 end
+promise2
+settimeout
+```
+
+
+
+## js“深冻结”对象
+如果想要确保对象被深冻结，就必须创建一个递归函数来冻结对象类型的每个属性：
+
+### 没有深冻结
+```js
+let person = {
+    name: 'Leonardo',
+    profession: {
+        name: 'developer'
+    }
+};
+Object.freeze(person);
+peroson.profession.name = 'doctor';
+console.log(person);  //output {name: 'Leonardo', profession: {name: 'doctor'} }
+```
+
+### 深冻结
+```js
+function deepFreeze(object) {
+    let propNames = Object.getOwnPropertyNames(object);
+    for(let name of propNames) {
+        let value = object[name];
+        object[name] = value && typeof value === 'object' ? deepFreeze(value) : value;
+    }
+    return Object.freeze(object);
+}
+let person = {
+    name: 'Leonardo',
+    profession: {
+        name: 'developer'
+    }
+};
+deepFreeze(person);
+person.profession.name = 'doctor';
+```
+
+## 编写一个可以执行如下操作的函数
+```js
+var addSix = createBase(6);
+addSix(10); // 返回 16
+addSix(21);  // 返回 27
+
+function createBase(baseNumber) {
+    return function(N) {
+        return baseNumber + N;
+    }
+}
+```
+
+## CSS加载会阻塞js运行吗
+
+1. css加载不会阻塞DOM树的解析
+2. css加载会阻塞DOM树的渲染
+3. css加载会阻塞后面js语句的执行
+
+因此，为了避免让用户看到长时间的白屏时间，我们应该尽可能的提高css加载速度，比如可以使用以下几种方法:
+
+1. 使用CDN(因为CDN会根据你的网络状况，替你挑选最近的一个具有缓存内容的节点为你提供资源，因此可以减少加载时间)
+2. 对css进行压缩(可以用很多打包工具，比如webpack,gulp等，也可以通过开启gzip压缩)
+3. 合理的使用缓存(设置cache-control,expires,以及E-tag都是不错的，不过要注意一个问题，就是文件更新后，你要避免缓存而带来的影响。其中一个解决防范是在文件名字后面加一个版本号)
+4. 减少http请求数，将多个css文件合并，或者是干脆直接写成内联样式(内联样式的一个缺点就是不能缓存)
+
+## ['1', '2', '3'].map(parseInt)
+首先让我们回顾一下，map函数的第一个参数callback：
+
+var new_array = arr.map(function callback(currentValue[, index[, array]]) { // Return element for new_array }[, thisArg])
+
+这个callback一共可以接收三个参数，其中第一个参数代表当前被处理的元素，而第二个参数代表该元素的索引。
+
+
+而parseInt则是用来解析字符串的，使字符串成为指定基数的整数。
+
+parseInt(string, radix)
+
+接收两个参数，第一个表示被处理的值（字符串），第二个表示为解析时的基数。
+
+了解这两个函数后，我们可以模拟一下运行情况
+
+parseInt('1', 0) //radix为0时，且string参数不以“0x”和“0”开头时，按照10为基数处理。这个时候返回1
+
+parseInt('2', 1) //基数为1（1进制）表示的数中，最大值小于2，所以无法解析，返回NaN
+
+parseInt('3', 2) //基数为2（2进制）表示的数中，最大值小于3，所以无法解析，返回NaN
+
+map函数返回的是一个数组，所以最后结果为[1, NaN, NaN]
+
+## 实现new
+首先创建一个空的对象，空对象的 ___proto____属性指向构造函数的原型对象
+把上面创建的空对象赋值构造函数内部的this，用构造函数内部的方法修改空对象
+如果构造函数返回一个非基本类型的值，则返回这个值，否则上面创建的对象
+
+```js
+function _new(fn, ...arg) {
+    var obj = Object.create(fn.prototype);
+    const result = fn.apply(obj, ...arg);
+    return Object.prototype.toString.call(result) == '[object Object]' ? result : obj;
+}
+```
+
+## 算法
+
+### 算法手写题
+已知如下数组：
+
+var arr = [ [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14] ] ] ], 10];
+
+编写一个程序将数组扁平化去并除其中重复部分数据，最终得到一个升序且不重复的数组
+
+```js
+var arr = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
+    // 方法一
+    console.log(Array.from(new Set(arr.flat(Infinity))).sort((a, b) => a - b))
+    // 方法二
+    console.log(Array.from(new Set(arr.toString().split(','))).map(Number).sort((a, b) => a - b))
+
+    // 方法三
+    // 第一步：扁平化
+    let newArr = [];
+    function flat(originArr) {
+        if ({}.toString.call(originArr) === '[object Array]') {
+            for (let i of originArr) {
+                if ({}.toString.call(i) === '[object Array]') {
+                    arguments.callee(i)
+                } else {
+                    newArr.push(i)
+                }
+            }
+        }
+        return newArr;
+    }
+    console.log(flat(arr))
+    // 第二步：去重
+    var newArr1 = [];
+    for (let i of newArr) {
+        if (!newArr1.includes(i)) newArr1.push(i);
+    }
+    // 第三步：排序 可以采用相关算法处理
+    console.log(newArr1.sort((a, b) => a - b))
+```
+
 
 ## 常用设计模式在前端开发中的应用
 设计模式，是一套经过前人总结、业务验证并适合于特定业务开发的代码组织方式，可能会有一些同学会认为设计模式没有用，我这里需要指出设计模式并不是万能的只适合于特定业务场景的开发（对我们的业务开发起到一定的指导作用，所有设计模式的目的都是让开发者编写可维护、易扩展的代码），其实你日常开发中或多或少都使用过设计模式，只是你不知道名字而已（如，绑定事件和触发事件这就是一个简单的发布-订阅模式）。<br/><br/>

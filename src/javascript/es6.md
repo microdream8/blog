@@ -147,6 +147,70 @@ class B extends A {
 3. 箭头函数也没有prototype属性箭头函数绑定了词法作用域，不会修改this的指向（**最大特点**）
 4. 箭头函数的作用域不能通过.call、.apply、.bind等语法来改变，这使得箭头函数的上下文将永久不变
 
+### 使用ES6类的好处
+* 语法简单，更不容易出错。
+* 使用新语法比使用旧语法更容易（而且更不易出错）地设置继承层次结构。
+* class可以避免构造函数中使用new的常见错误（如果构造函数不是有效的对象，则使构造函数抛出异常）。
+* 用新语法调用父原型方法的版本比旧语法要简单得多，用super.method()代替ParentConstructor.method.call(this)或Object.getPrototypeOf(Object.getPrototypeOf(this)).method.call(this)
+
+考虑下面代码：
+```js
+var Person = function(first, last) {
+    if(!(this instanceof Person)) {
+        throw new Error('Personis a constructor function, use new with it');
+    }
+    this.first = first;
+    this.last = last;
+}
+
+Person.prototype.personMethod = function() {
+    return "Result form personMethod: this.first = " + this.firt + ", this.last = " + this.last;
+};
+
+var Employee = function(first, last, position) {
+    if (!(this instanceof Employee)) {
+        throw new Error("Employee is a constructor function, use new with it");
+    }
+    Person.call(this, first, last);
+    this.position = position;
+};
+Employee.prototype = Object.crate(Person.prototype);
+Employee.prototype.constructor = Employee;
+Employee.prototype.personMethod = function() {
+    var result = Person.prototype.personMethod.call(this);
+    return result = ", this.position = " + this.position;
+};
+Employee.prototype.employeeMethod = function {
+    // ... 
+};
+```
+
+使用ES6实现上述功能：
+```js
+class Person {
+    constructor(first, last) {
+        this.first = first;
+        this.last = last;
+    }
+    personMethod() {
+        // ...
+    }
+}
+
+class Employee extends Person {
+    constructor(first, last, position) {
+        super(first, last);
+        this.position = position;
+    }
+
+    employeeMethod() {
+        // ...
+    }
+}
+```
+
+
+
 
 ## Set和WeakSet
 
@@ -387,3 +451,12 @@ WeakMap<br/>
 * 只接受对象作为键名（null除外），不接受其他类型的值作为键名
 * 键名是弱引用，键值可以是任意的，键名所指向的对象可以被垃圾回收，此时键名是无效的
 * 不能遍历，方法有get、set、has、delete
+
+## Symbol
+
+### Symbol引入ES6的目的
+
+Symbol 是一种新的、特殊的对象，可以用作对象中惟一的属性名。使用 Symbol 替换string 可以避免不同的模块属性的冲突。还可以将Symbol设置为私有，以便尚无直接访问Symbol权限的任何人都不能访问它们的属性。
+
+Symbol 是JS新的基本数据类型。与number、string和boolean 原始类型一样，Symbol 也有一个用于创建它们的函数。与其他原始类型不同，Symbol没有字面量语法。创建它们的唯一方法是使用以下方法中的Symbol构造函数
+

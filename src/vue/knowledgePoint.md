@@ -147,6 +147,23 @@ exercise: {
 }
 ```
 
+### computed 的实现原理
+
+computed 本质是一个惰性求值的观察者。
+
+computed 内部实现了一个惰性的 watcher,也就是 computed watcher,computed watcher 不会立刻求值,同时持有一个 dep 实例。
+
+其内部通过 this.dirty 属性标记计算属性是否需要重新求值。
+
+当 computed 的依赖状态发生改变时,就会通知这个惰性的 watcher,
+
+computed watcher 通过 this.dep.subs.length 判断有没有订阅者,
+
+有的话,会重新计算,然后对比新旧值,如果变化了,会重新渲染。 (Vue 想确保不仅仅是计算属性依赖的值发生变化，而是当计算属性最终计算的值发生变化时才会触发渲染 watcher 重新渲染，本质上是一种优化。)
+
+没有的话,仅仅把 this.dirty = true。 (当计算属性依赖于其他数据时，属性并不会立即重新计算，只有之后其他地方需要读取属性的时候，它才会真正计算，即具备 lazy（懒计算）特性。)
+
+
 ###  组件中 data 为什么是一个函数
 因为组件是用来复用的，且 JS 里对象是引用关系，如果组件中 data 是一个对象，那么这样作用域没有隔离，子组件中的 data 属性值会相互影响，如果组件中 data 选项是一个函数，那么每个实例可以维护一份被返回对象的独立的拷贝，组件实例之间的 data 属性值不会互相影响；而 new Vue 的实例，是不会被复用的，因此不存在引用对象的问题。
 
@@ -193,6 +210,35 @@ diff程可以概括为：oldCh和newCh各有两个头尾的变量StartIdx和EndI
 * 准确: 如果不加key,那么vue会选择复用节点(Vue的就地更新策略),导致之前节点的状态被保留下来,会产生一系列的bug.
 * 快速: key的唯一性可以被Map数据结构充分利用,相比于遍历查找的时间复杂度O(n),Map的时间复杂度仅仅为O(1).
 
+### Vue从初始化页面->修改数据->刷新页面UI过程
+
+当Vue进入初始化阶段时，一方面<b>Vue会遍历data中的属性</b>，并用Object.defineProperty将它转化成getter/setterd的形式，实现数据劫持；另一方面，<b>Vue的指令编译器Compiler</b>对元素节点的各个指令进行解析，初始化视图，并订阅Watcher来更新视图，此时Watcher会将自己<b>添加到消息订阅器Dep中</b>，此时初始化完毕。
+当数据发生变化时，触发Observer中setter方法，<b>立即调用Dep.notify()</b>，Dep这个数组开始遍历所有的订阅者，并<b>调用其update方法</b>，Vue内部再通过diff算法，patch相应的更新完成对订阅者视图的改变。
+
+### 组件中写name选项有什么作用
+1. 项目使用keep-alive时，可搭配组件的name进行缓存过滤。
+2. DOM做递归组件时需要调用自身name
+3. vue-devtools调试工具里显示的组件名称是由vue中组件name决定的
+
+### Vue3.0的了解
+大致有三个点，第一个是关于提出的新API setup()函数，第二个说了对于Typescript的支持，最后说了关于替换Object.defineProperty为 Proxy 的支持。详细说了下关于Proxy代替带来的性能上的提升，因为传统的原型链拦截的方法，无法检测对象及数组的一些更新操作，但使用Proxy又带来了浏览器兼容问题。
+
+### vue-cli 替我们做了那些工作
+vue-cli是基于 Vue.js 进行快速开发的完整系统，也可以理解成是很多 npm 包的集合。
+
+vue-cli完成的功能：
+
+* .vue 文件 --> .js 文件
+* ES6 语法 --> ES5 语法
+* Sass,Less,Stylus --> CSS
+* 对 jpg,png,font 等静态资源的处理
+* 热更新
+* 定义环境变量，区分 dev 和 production 模式
+
+### mixin
+Mixins 使我们能够为 Vue 组件编写可插拔和可重用的功能。如果你希望在多个组件之间重用一组组件选项，例如生命周期 hook、方法等，则可以将其编写为 mixin，并在组件中简单地引用它。然后将 mixin 的内容合并到组件中。如果你要在 mixin 中定义生命周期 hook，那么它在执行时将优先于组件自己的 hook 。
+
+- [详细浏览 ] (https://juejin.im/post/5e1eb1dff265da3e354ea2d0)
 
 ## 路由相关
 
@@ -220,6 +266,57 @@ Vue项目总实现路由按需加载（懒加载）的三种方式：
 	}
 ```
 
+### 有哪几种导航钩子
+
+1. 全局导航钩子：一般用来判断权限，以及页面丢失时需要执行的操作；
+beforeEach（）每次路由进入之前执行的函数。
+
+afterEach（）每次路由进入之后执行的函数。
+
+beforeResolve（）2.5新增
+
+
+2. 单个路由（实例钩子）：某个指定路由跳转时需要执行的逻辑。
+beforeEnter（）
+
+beforeLeave（）
+
+
+3. 组件路由钩子：
+beforeRouteEnter（）
+
+beforeRouteLeave（）
+
+beforeRouteUpdate（）
+
+### route 和 router
+
+* route是“路由信息对象”，包括path,params,hash,query,fullPath,matched,name等路由信息参数。
+* router是“路由实例对象”，包括了路由的跳转方法(push、go)，钩子函数等。
+
+
+### 编程式导航
+
+```html
+// 声明式
+<router-link :to="...">
+```
+```js
+// 字符串
+router.push('home')
+
+// 对象
+router.push({ path: 'home' })
+
+// 命名的路由
+router.push({ name: 'user', params: { userId: '123' }})
+
+// 带查询参数，变成 /register?plan=private
+router.push({ path: 'register', query: { plan: 'private' }})
+```
+
+
+
 ### vue路由有几种模式
 1. hash模式
 即地址栏URL中的#符号，它的特点在于：hash 虽然出现URL中，但不会被包含在HTTP请求中，对后端完全没有影响，不需要后台进行配置，因此改变hash不会重新加载页面。
@@ -229,6 +326,12 @@ Vue项目总实现路由按需加载（懒加载）的三种方式：
 
 
 ## axios相关
+### 特点
+1. axios是一个基于promise的HTTP库，支持promise的所有API；
+2. 它可以拦截,请求和响应； 
+3. 它可以转换请求数据和响应数据，并对响应回来的内容自动转换为json类型的数据；
+4. 它安全性更高，客户端支持防御XSRF；
+
 ### axios相应拦截配置
 
 ```js
@@ -265,6 +368,9 @@ Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。每一个 
 * Action：用于提交 mutation，而不是直接变更状态，可以包含任意异步操作。
 * Module：允许将单一的 Store 拆分为多个 store 且同时保存在单一的状态树中。
 
+### Vuex的双向绑定
+Vuex的双向绑定通过调用 new Vue实现，然后通过 Vue.mixin 注入到Vue组件的生命周期中，再通过劫持state.get将数据放入组件中
+
 ### 为什么要用vuex
 
 1. 传参的方法对于多层嵌套的组件将会非常繁琐，并且对于兄弟组件间的状态传递无能为力。
@@ -286,6 +392,10 @@ store.commit('increment')
 console.log(store.state.count) // -> 1
 ```
 
+### vue-loader
+vue-loader是webpack的加载器模块，它是我们可以用.vue文件格式编写单文件组建。单文件组建有三部分，即模板、脚本和样式。vue-loader模块允许webpack使用单独的加载器模块（例如SASS或SCSS加载器）提取和处理每个部分。该设置使我们可以使用.vue文件无缝编写程序。
+
+vue-loaer模块还允许把静态资源视为模块依赖性，并允许使用webpack加载器进行处理。而且还允许在开发过程中进行热重装。
 
 ## 虚拟dom的概念
 
@@ -370,7 +480,7 @@ Vue 和 React 的虚拟DOM的Diff算法大致相同，其核心是基于两个�
 如果节点类型相同，则会重新设置该节点的属性，从而实现节点的更新。<br/>
 总而言之，key的作用主要是为了高效的更新虚拟DOM 。另外vue中在使用相同标签名元素的过渡切换时，也会使用到key属性，其目的也是为了让vue可以区分它们，否则vue只会替换其内部属性而不会触发过渡效果。<br/>
 
-参考来源：https://blog.csdn.net/aihuanhuan110/article/details/98223011<br/>
+- [参考来源 ] (https://blog.csdn.net/aihuanhuan110/article/details/98223011)
 
 
 ## 单页应用与多页应用

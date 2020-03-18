@@ -5,6 +5,8 @@ collapsable: true
 ---
 # 异步相关知识点
 
+- [js异步发展历程] (https://juejin.im/post/5a601655f265da3e317e33e2)
+
 ## Promise
 ### Promise 的含义
 Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。它由社区最早提出和实现，ES6 将其写进了语言标准，统一了用法，原生提供了Promise对象。<br/>
