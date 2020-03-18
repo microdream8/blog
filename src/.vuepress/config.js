@@ -30,19 +30,17 @@ module.exports = {
       {
         text: '技术积累',
         items: [
-          { text: 'webpack入门', link: '/share/webpack-base' },
-          { text: 'webpack随手记', link: '/share/webpack-note' },
+          { text: '图片相关总结', link: '/javascript/img' },
+          { text: '遇到的坑', link: '/javascript/js-bug' },
         ]
       },
       {
         text: 'JS开发总结',
         items: [
-          { text: '图片相关总结', link: '/javascript/img' },
           { text: 'js继承', link: '/javascript/inherit' },
           { text: 'js继承(二)', link: '/javascript/inherit2' },
           { text: '面向对象', link: '/javascript/obj' },
           { text: '引用对象', link: '/javascript/yinyong' },
-          { text: '遇到的坑', link: '/javascript/js-bug' },
           { text: 'js各种知识点', link: '/javascript/js-tip' },
           { text: '异步汇总', link: '/javascript/yibu' },
           { text: '跨域相关', link: '/javascript/core' },
@@ -63,7 +61,9 @@ module.exports = {
       {
         text: '框架',
         items: [
-          { text: '框架小知识', link: '/vue/knowledgePoint' }
+          { text: 'Vue小知识', link: '/vue/knowledgePoint' },
+          { text: 'webpack入门', link: '/share/webpack-base' },
+          { text: 'webpack随手记', link: '/share/webpack-note' },
         ]
       },
       // {
