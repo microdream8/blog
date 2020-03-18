@@ -55,7 +55,7 @@ module.exports = {
           { text: '公众号开发总结', link: '/mobile/wechat' },
           { text: '移动端性能优化(一)', link: '/mobile/optimize' },
           { text: '移动端性能优化(二)', link: '/mobile/optimize2' },
-          { text: '移动端的那些坑(一)', link: '/mobile/mobile-bug' }
+          { text: '移动端的那些坑', link: '/mobile/mobile-bug' }
         ]
       },
       {

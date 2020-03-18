@@ -200,6 +200,14 @@ postUploadImg(file) { // 向后台提交上传的图片
 
 <b>特殊处理IOS中图片展示时的旋转90度问题</b>
 ```js
+<!-- 在onchange事件中获取file文件 -->
+if (!navigator.userAgent.toLowerCase().match(/android/i)) {
+    let reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = e => {
+        this._dealWithImg(file, e.target.result)  //针对苹果手机图片躺着问题
+    }
+}
 _dealWithImg(file, res) {
     const defaultImage = {
         width: 1000,
@@ -281,6 +289,30 @@ dataURLtoFile(dataurl, filename) { // 将base64转换为文件
         u8arr[n] = bstr.charCodeAt(n);
     }
     return new File([u8arr], filename, { type: mime });
+}
+
+fileHandle(file) {
+    let reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onloadstart = () => {
+    console.log('文件上传中...')
+    }
+    let getPutImgW = $("#uploadWrapper").width()
+    reader.onload = (e) => {
+    let image = new Image()
+    image.onload = () => {
+        var width = image.width * 1
+        var height = image.height * 1
+        let imgMaxLen = width > height ? width : height
+        if(imgMaxLen <= getPutImgW) {
+        this.bgImgSizeUpload = false
+        }else {
+        this.bgImgSizeUpload = true
+        }
+    }
+    image.src = e.target.result
+    this.uploadImgUrl = reader.result
+    }
 }
 ```
 ::: warning 注意

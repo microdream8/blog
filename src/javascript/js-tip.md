@@ -52,7 +52,7 @@ collapsable: true
 &nbsp;&nbsp;&nbsp;&nbsp;2）[...arrayLike]<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;3）Array.from(arrayLike)<br/>
 
-## 数组最大值
+### 数组最大值
 var arr = [1, 2, 3, 2, 1];<br/>
 1、es6拓展运算符 Math.max(...arr)<br/>
 2、es5 apply Math.max.apply(null,arr)<br/>
@@ -60,7 +60,7 @@ var arr = [1, 2, 3, 2, 1];<br/>
 4、数组sort()后取arr[0]<br/>
 5、数组reduce arr.reduce((num1, num2) => {return num1 > num2 ? num1 : num2})<br/>
 
-## 数组去重
+### 数组去重
 1、利用ES6 Set去重（ES6中最常用） Array.from(new Set(arr))<br/>
 2、利用for嵌套for，然后splice去重（ES5中最常用）<br/>
 ```js
@@ -143,6 +143,34 @@ function unique(arr) {
 ```
 6、[...new Set(arr)]<br/>
 
+### 排序
+```js
+var colors =
+[
+    {
+        "hex":"关键字",
+        "label":"abs"
+    },
+    {
+        "hex":"关键字",
+        "label":"and"
+    },
+    {
+        "hex":"关键字",
+        "label":"append"
+    },
+    {
+        "hex":"关键字",
+        "label":"assert"
+    }
+]
+let sorts = function(a,b){
+    return a.label.localeCompare(b.label)
+    // return a.label - b.label
+}
+```
+
+
 ## js异步提交form表单之serialize()方法及FormData对象
 serialize()和FormData对象都可将表单数据序列化，后通过ajax异步提交，但二者有实质区别：<br/>
 1 serialize()<br/>
@@ -187,6 +215,19 @@ formData.append("age","16");
 ::: warning 注意
 1 form表单加 enctype="multipart/form-data"；2 ajax加 processData: false,contentType: false
 :::
+
+## 下载
+```js
+const elink = document.createElement('a');
+elink.download = '导出招生信息列表.xlsx';
+elink.style.display = 'none';
+const blob = new Blob([res], { type: 'application/vnd.ms-excel' });
+const csvUrl = URL.createObjectURL(blob);
+elink.href = csvUrl;
+document.body.appendChild(elink);
+elink.click();
+document.body.removeChild(elink);
+```
 
 ## 基本数据类型与引用数据类型
 基本数据类型：string, number, boolean, null, undefined。<br/>
