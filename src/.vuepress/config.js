@@ -15,6 +15,7 @@ module.exports = {
         text: '教程',
         items: [
           { text: '环境配置', link: '/share/env'},
+          { text: 'markdown语法', link: '/share/md' },
           // { text: 'eslint规则', link: '/share/eslint'},
           // { text: '性能优化', link: '/share/opt'},
         ]
@@ -30,12 +31,7 @@ module.exports = {
         text: '技术积累',
         items: [
           { text: 'webpack入门', link: '/share/webpack-base' },
-          { text: 'webpack学习', link: '/technology/webpack'},
-          { text: '深入webpack', link: '/share/webpack' },
           { text: 'webpack随手记', link: '/share/webpack-note' },
-          { text: 'webpack配置vue', link: '/share/webpack-vue' },
-          { text: '深入浅出前端脚手架', link: '/share/scaffold' },
-          { text: 'markdown语法', link: '/share/md' },
         ]
       },
       {
