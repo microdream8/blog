@@ -25,24 +25,6 @@ collapsable: true
 2、Array对象的 isArray方法：Array.isArray(obj)<br/>
 3、Object.prototype.toString：Object.prototype.toString.call(obj) === '[object Array]'<br/>
 
-
-## 事件委托
-一步一步来说说事件委托（或者有的资料叫事件代理）<br/>
-1、js中事件冒泡我们知道，子元素身上的事件会冒泡到父元素身上。<br/>
-2、事件代理就是，本来加在子元素身上的事件，加在了其父级身上。<br/>
-3、那就产生了问题：父级那么多子元素，怎么区分事件本应该是哪个子元素的？<br/>
-4、答案是：event对象里记录的有“事件源”，它就是发生事件的子元素。<br/>
-5、它存在兼容性问题，在老的IE下，事件源是 window.event.srcElement，其他浏览器是 event.target<br/>
-用事件委托有什么好处呢？<br/>
-1、第一个好处是效率高，比如，不用for循环为子元素添加事件了<br/>
-2、只在内存中开辟了一块空间，节省资源同时减少了DOM操作，提供性能<br/>
-3、第二个好处是，js<b>新生成的子元素</b>也不用新为其添加事件了，程序逻辑上比较方便<br/>
-
-阻止冒泡：
-
-防止事件冒泡的一种方法是使用 event.cancelBubble 或 event.stopPropagation()（低于 IE 9）
-
-
 ## 数组和类数组
 1、类数组定义<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;1）拥有length属性，其它属性（索引）为非负整数（对象中的索引会被当做字符串来处理）；<br/>
@@ -142,6 +124,24 @@ function unique(arr) {
 // [0, 1, 15, "NaN", NaN, NaN, {…}, {…}, "a", false, null, true, "true", undefined] //NaN、{}没有去重
 ```
 6、[...new Set(arr)]<br/>
+
+
+## 事件委托
+一步一步来说说事件委托（或者有的资料叫事件代理）<br/>
+1、js中事件冒泡我们知道，子元素身上的事件会冒泡到父元素身上。<br/>
+2、事件代理就是，本来加在子元素身上的事件，加在了其父级身上。<br/>
+3、那就产生了问题：父级那么多子元素，怎么区分事件本应该是哪个子元素的？<br/>
+4、答案是：event对象里记录的有“事件源”，它就是发生事件的子元素。<br/>
+5、它存在兼容性问题，在老的IE下，事件源是 window.event.srcElement，其他浏览器是 event.target<br/>
+用事件委托有什么好处呢？<br/>
+1、第一个好处是效率高，比如，不用for循环为子元素添加事件了<br/>
+2、只在内存中开辟了一块空间，节省资源同时减少了DOM操作，提供性能<br/>
+3、第二个好处是，js<b>新生成的子元素</b>也不用新为其添加事件了，程序逻辑上比较方便<br/>
+
+阻止冒泡：
+
+防止事件冒泡的一种方法是使用 event.cancelBubble 或 event.stopPropagation()（低于 IE 9）
+
 
 ### 排序
 ```js
