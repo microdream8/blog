@@ -75,7 +75,7 @@ alert(cat2 instanceof Cat); //true
 
 ### 四、构造函数模式的问题
 
-构造函数方法很好用，但是存在一个浪费内存的问题。<br/>
+构造函数方法很好用，但是存在一个<b>浪费内存</b>的问题。<br/>
 请看，我们现在为Cat对象添加一个不变的属性type（种类），再添加一个方法eat（吃）。那么，原型对象Cat就变成了下面这样：
 ```js
 function Cat(name,color){
@@ -92,7 +92,7 @@ var cat2 = new Cat ("二毛","黑色");
 alert(cat1.type); // 猫科动物
 cat1.eat(); // 吃老鼠
 ```
-表面上好像没什么问题，但是实际上这样做，有一个很大的弊端。那就是对于每一个实例对象，type属性和eat()方法都是一模一样的内容，每一次生成一个实例，都必须为重复的内容，多占用一些内存。这样既不环保，也缺乏效率。
+表面上好像没什么问题，但是实际上这样做，有一个很大的弊端。那就是对于每一个实例对象，type属性和eat()方法都是一模一样的内容，<b>每一次生成一个实例，都必须为重复的内容，多占用一些内存</b>。这样既不环保，也缺乏效率。
 ```js
 alert(cat1.eat == cat2.eat); //false
 ```
@@ -171,10 +171,10 @@ function Cat(name,color){
 var cat1 = new Cat("大毛","黄色");
 alert(cat1.species); // 动物
 ```
-1）优点<br/>
-简单明了，直接继承超类构造函数的属性和方法<br/>
-2）缺点<br/>
-无法继承原型链上的属性和方法<br/>
+1. 优点
+简单明了，直接继承超类构造函数的属性和方法
+2. 缺点
+无法继承原型链上的属性和方法
 
 ### prototype模式
 第二种方法更常见，使用prototype属性。<br/>
@@ -189,7 +189,7 @@ alert(cat1.species); // 动物
 ```js
 Cat.prototype = new Animal();
 ```
-它相当于完全删除了prototype 对象原先的值，然后赋予一个新值。但是，第二行又是什么意思呢？
+<b>它相当于完全删除了prototype 对象原先的值，然后赋予一个新值</b>。但是，第二行又是什么意思呢？
 ```js
 Cat.prototype.constructor = Cat;
 ```
@@ -215,7 +215,27 @@ o.prototype = {};
 o.prototype.constructor = o;
 ```
 
+问题：
+
+单纯的使用原型链继承，主要问题来自包含引用类型值的原型。
+
+```js
+function SuperType() {
+    this.colors = ['red', 'blue', 'green']
+}
+
+function SubType() {}
+
+SubType.prototype = new SuperType()
+
+var instance1 = new SubType() var instance2 = new SubType()
+
+instance1.colors.push('black') console.log(instance1.colors) // ["red", "blue", "green", "black"]
+console.log(instance2.colors) // ["red", "blue", "green", "black"]
+```
+
 ### 直接继承prototype
+
 第三种方法是对第二种方法的改进。由于Animal对象中，不变的属性都可以直接写入Animal.prototype。所以，我们也可以让Cat()跳过 Animal()，直接继承Animal.prototype。<br/>
 现在，我们先将Animal对象改写：
 ```js
@@ -229,7 +249,14 @@ Cat.prototype.constructor = Cat;
 var cat1 = new Cat("大毛","黄色");
 alert(cat1.species); // 动物
 ```
-与前一种方法相比，这样做的优点是效率比较高（不用执行和建立Animal的实例了），比较省内存。缺点是 Cat.prototype和Animal.prototype现在指向了同一个对象，那么任何对Cat.prototype的修改，都会反映到Animal.prototype。<br/>
+与前一种方法相比，这样做的优缺点分别是：
+
+* 优点
+效率比较高（不用执行和建立Animal的实例了），比较省内存。
+
+* 缺点
+Cat.prototype和Animal.prototype现在指向了同一个对象，那么任何对Cat.prototype的修改，都会反映到Animal.prototype。
+
 所以，上面这一段代码其实是有问题的。请看第二行
 ```js
 Cat.prototype.constructor = Cat;
