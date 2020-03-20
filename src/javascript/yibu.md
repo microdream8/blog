@@ -5,8 +5,6 @@ collapsable: true
 ---
 # 异步相关知识点
 
-- [js异步发展历程] (https://juejin.im/post/5a601655f265da3e317e33e2)
-
 ## Promise
 ### Promise 的含义
 Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。它由社区最早提出和实现，ES6 将其写进了语言标准，统一了用法，原生提供了Promise对象。<br/>
@@ -778,6 +776,8 @@ js中的callback与promise的区别实际就是宽度和深度的区别<br/><br/
 1. callback函数处理异步：代码逻辑复杂，可读性差----回调地狱；不可return；<br/>
 2. promise处理异步：对比callback，易读，可以return，不需要层层传递callback；处理多个异步等待合并<br/>
 3. async，await--ES2017 ，promise的语法糖<br/>
+
+- [js异步发展历程](https://juejin.im/post/5a601655f265da3e317e33e2)
 
 ## 附录：原生ajax
 ```js

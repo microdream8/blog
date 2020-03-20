@@ -979,17 +979,42 @@ parseInt('3', 2) //基数为2（2进制）表示的数中，最大值小于3，�
 map函数返回的是一个数组，所以最后结果为[1, NaN, NaN]
 
 ## 实现new
-首先创建一个空的对象，空对象的 ___proto____属性指向构造函数的原型对象
-把上面创建的空对象赋值构造函数内部的this，用构造函数内部的方法修改空对象
-如果构造函数返回一个非基本类型的值，则返回这个值，否则上面创建的对象
+1. 创建一个空对象
+2. 链接到原型
+3. 绑定this值
+4. 返回新对象
 
 ```js
-function _new(fn, ...arg) {
-    var obj = Object.create(fn.prototype);
-    const result = fn.apply(obj, ...arg);
-    return Object.prototype.toString.call(result) == '[object Object]' ? result : obj;
+function create(){
+  //创建一个空对象
+  let obj = new Object();
+  //获取构造函数
+  let Constructor = [].shift.call(arguments);  // //取得该方法的第一个参数(并删除第一个参数)，该参数是构造函数
+  //链接到原型
+  obj.__proto__ = Constructor.prototype;
+  //绑定this值
+  let result = Constructor.apply(obj,arguments);//使用apply，将构造函数中的this指向新对象，这样新对象就可以访问构造函数中的属性和方法
+  //返回新对象
+  return typeof result === "object" ? result : obj;//如果返回值是一个对象就返回该对象，否则返回构造函数的一个实例对象
 }
+
+// 接下来测试下：
+function People(name,age){
+  this.name = name;
+  this.age = age;
+}
+//通过new创建构造实例
+let people1 = new People('Jack',20);
+console.log(people1.name) //Jack
+console.log(people1.age) //20
+
+//通过create方法创造实例
+let people2 = create(People,'Rose',18);//调用自定义create实现new
+console.log(people2.name) //Rose
+console.log(people2.age) //18
 ```
+
+- [参考来源](https://blog.csdn.net/liwenfei123/article/details/80580883)
 
 ## 算法
 
