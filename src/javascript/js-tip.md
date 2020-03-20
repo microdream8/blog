@@ -685,7 +685,7 @@ function judge(){
 
 解决：手动删除清空。
 
-- [详细参考] (https://www.cnblogs.com/mayun0504/p/10646620.html)
+- [慕课网JS入门](https://www.cnblogs.com/mayun0504/p/10646620.html)
 
 
 ## JS引擎执行有那几个阶段
@@ -698,7 +698,7 @@ JS引擎线程的执行过程的三个阶段：<br/>
 执行阶段<br/>
 <br/>
 
-- [详细参考] (https://blog.csdn.net/qappleh/article/details/88115997)
+- [详细参考](https://blog.csdn.net/qappleh/article/details/88115997)
 
 
 
