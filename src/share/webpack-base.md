@@ -177,7 +177,7 @@ module.exports = {
 3. html-webpack-plugin: 生成index.html 并自动注入打包后的js css 等
 4. webpack.DefinePlugin： 可以生成配置常量。编译时就有的常量。
 5. extract-text-webpack-plugin： 提取使用文件的css 组成一个或多个css 文件。
-6. webpack.optimize.CommonsChunkPlugin： 让多个出口文件组成一个文件
+6. webpack.optimize.CommonsChunkPlugin： 让多个出口文件组成一个文件(4.x改为SplitChunksPlugin)
 7. webpack-dev-server: 开发时使用，静态服务器，并且有热替换等功能。
 8. uglifyjs-webpack-plugin： 删除警告，压缩代码等。
 
