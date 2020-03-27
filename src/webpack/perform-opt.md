@@ -91,7 +91,7 @@ webpack默认使用uglify进行打包，是单线程的打包模式，可以使�
 备注：可以结合路由懒加载的方式
 
 
-## 缓存
+<!-- ## 缓存
 
 ## 分包
 使用splitchunks进行代码的拆分。
@@ -118,6 +118,6 @@ so
 这玩意就是辅助我调试用的，正式站其实作用不大，而且处于安全考虑，可以直接干掉。
 
 ### 如何优化
-因为我是基于vue-cli3构建的项目，所以在vue.config.js文件中，添加productionSourceMap: false即可；之后直接编译 npm run  build 就可以看到效果
+因为我是基于vue-cli3构建的项目，所以在vue.config.js文件中，添加productionSourceMap: false即可；之后直接编译 npm run  build 就可以看到效果 -->
 
 
