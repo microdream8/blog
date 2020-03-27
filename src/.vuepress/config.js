@@ -32,6 +32,7 @@ module.exports = {
         items: [
           { text: '图片相关总结', link: '/javascript/img' },
           { text: '遇到的坑', link: '/javascript/js-bug' },
+          { text: 'css3', link: '/css/base-css' },
         ]
       },
       {
