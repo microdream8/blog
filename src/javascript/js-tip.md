@@ -700,8 +700,51 @@ JS引擎线程的执行过程的三个阶段：<br/>
 
 - [详细参考](https://blog.csdn.net/qappleh/article/details/88115997)
 
+## cookie
+### 什么是 cookie？
+Cookie 是在您的计算机上存储在小的文本文件中的数据。
 
+当 web 服务器向浏览器发送网页后，连接被关闭，服务器会忘记用户的一切。
 
+Cookie 是为了解决“如何记住用户信息”而发明的：
+
+当用户访问网页时，他的名字可以存储在 cookie 中。
+
+下次用户访问该页面时，cookie 会“记住”他的名字。
+### 定义和用法
+setcookie()函数向客户端发送一个 HTTP cookie。
+
+cookie是由服务器发送到浏览器的变量。cookie 通常是服务器嵌入到用户计算机中的小文本文件。每当计算机通过浏览器请求一个页面，就会发送这个cookie。
+
+cookie的名称指定为相同名称的变量。例如，如果被发送的 cookie 名为 "name"，会自动创建名为 $user 的变量，包含cookie 的值。
+
+必须在任何其他输出发送前对cookie 进行赋值。
+
+如果成功，则该函数返回true，否则返回 false。
+
+语法
+
+setcookie(name,value,expire,path,domain,secure)
+
+* 参数	描述
+* name	必需。规定 cookie 的名称。
+* value	必需。规定 cookie 的值。
+* expire	可选。规定 cookie 的有效期。
+* path	可选。规定 cookie 的服务器路径。
+* domain	可选。规定 cookie 的域名。
+* secure	可选。规定是否通过安全的 HTTPS 连接来传输 cookie。
+
+第一个：name,必选参数，这个是cookie的变量名，可以通过$_COOKIE['user']调用变量名为user的cookie.
+
+第二：value,可选参数，这个cookie变量的值,比如说setcookie(“user”,”php”),我们通过调用$_COOKIE['user']可以得到php值;
+
+第三个：expire,可选参数，这个是用来设置cookie变量保存的时间，注意是我们设置的的UNIX时间戳减去当前的UNIX时间戳才是cookie变量保存的时间。（UNIX时间戳：是从1970年1月1日（UTC/GMT的午夜）开始所经过的秒数)，一般我们可以通过time()函数获取当前的UNIX时间戳，再加上我们要保存的时间（单位为秒）比如说，setcookie(“user”,”php”,time()+3600),这样我们就可以保存user这个cookie变量的时间为3600秒。另外我们可以通过设置的时间戳小于当前的时间戳来删除cookie变量，比如说setcookie(“user”,”php”,time()-1)这样我们就删除了user这个cookie变量了。
+
+第四个：path,cookie的有效范围，这个参数是下一个参数domain基础上的有效范围，如果path设置为”/”，那就是在整个domain都有效，比如setcookie(“user”,”php”,time()+3600,”/”),这样我们domain下的任何目录，任何文件都可以通过$_COOKIE['user']来调用这个cookie变量的值。如果path设置为”/test”,那么只在domain下的/test目录及子目录才有效，比如domain下有两个目录:test1,test2,我们设置为setcookie(“user”,”php,time()+3600,”/test1″)，那么只有test1目录下才能通过$_COOKIE['user']调用user这个cookie变量的值，test2目录下获取不到。
+
+第五个：domain,cookie有效的域名，如果domain,设置为googlephp.cn，那么在googlephp.cn下的所有子域都有效。假设googlephp.cn有两个子域，php.googlephp.cn，css.googlephp.cn，我们设置为setcookie(“user”,”php”,time()+3600,”/”,”php.googlephp.cn”),那么只有在php.googlephp.cn这个子域下才能获取user这个cookie变量的值.再举一个例子：setcookie(“user”,”php”,time()+3600,”/test”,”php.googlephp.cn”),那么只有在php.googlephp.cn这个子域下的test目录下才能获取user这个cookie变量的值.
+
+第六个：secure，值cookie是否仅通过安全的https,值为0或1，如果值为1，则cookie只能在https连接上有效，默认值为0，表示cookei在http和https连接上都有效。
 
 ## HTTP相关
 ### HTTP和HTTPS的基本概念
