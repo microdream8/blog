@@ -1,5 +1,5 @@
 ---
-title: 'Uniapp 从入门到进阶'
+title: 'Uniapp从入门到进阶'
 sidebar: auto
 collapsable: true
 ---

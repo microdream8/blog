@@ -63,6 +63,7 @@ module.exports = {
         text: '框架',
         items: [
           { text: 'Vue小知识', link: '/vue/knowledgePoint' },
+          { text: 'Uniapp学习', link: '/share/uni-app' },
           { text: 'webpack入门', link: '/share/webpack-base' },
           { text: 'webpack优化', link: '/webpack/perform-opt' },
           { text: 'webpack随手记', link: '/share/webpack-note' },
