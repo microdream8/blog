@@ -41,6 +41,19 @@ person1.name = "Nicholas";
 person1.age = 29;
 ```
 
+### 使用
+1. 遍历 keys(obj) values(obj) entries(obj)
+2. 判断对象里是不是所有对象都为空
+```js
+const applyData = {
+    name: '',
+    age: ''
+}
+
+let result = !Object.values(report).every(item => item === '')
+console.log(result)
+```
+
 ## 二、Array 类型
 
 除了 Object 之外，Array 类型恐怕是 ECMAScript 中最常用的类型了；数组的每一项可以保存任何类型的数据；数组的大小是可以动态调整的，即可以随着数据的添加自动增长以容纳新增数据。<br/>

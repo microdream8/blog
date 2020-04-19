@@ -39,6 +39,7 @@ module.exports = {
         text: 'JS开发总结',
         items: [
           { text: 'js继承', link: '/javascript/inherit' },
+          { text: 'js基础总结', link: '/javascript/js-base' },
           { text: 'js继承(二)', link: '/javascript/inherit2' },
           { text: '面向对象', link: '/javascript/obj' },
           { text: '引用对象', link: '/javascript/yinyong' },
