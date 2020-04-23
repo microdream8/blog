@@ -15,6 +15,8 @@ collapsable: true
     <el-form-item label="身份证号" prop="cardCode">
        <el-input v-model="formData.cardCode" :maxlength="18" placeholder="请输入身份证号" clearable></el-input>
     </el-form-item>
+    <!-- 提交按钮 -->
+  <el-button class="btn-login" type="primary" size="medium" @click="submitForm('form')">立即登录</el-button>
 </el-form>
 ```
 
@@ -51,58 +53,149 @@ data() {
     }
   }
 }
+methods: {
+  submitForm(formName) {
+    this.$refs[formName].validate(valid => {
+      if (valid) {
+        //如果通过验证 to do...
+      } else {
+        console.log('error submit!!')
+        return false
+      }
+    })
+  }
+}
 ```
 
 其中对于有些需要自定义的校验规则可以作为变量写在data中：
 
+实现思路
+* html中给el-form增加 :rules="rules"
+* html中在el-form-item中增加属性 prop="名称"
+* js中直接在data中在rules中的名称对应中设置 validator: 验证器名称，
+* js在data中return之上书写验证器对应的js验证逻辑
+* html部分
+```html
+<el-form ref="form" :rules="rules" :model="form" label-width="300px">    
+  <el-form-item label="发货人电话" prop="phone">
+    <el-input class="inp" v-model="form.phone" auto-complete="true"></el-input>
+  </el-form-item>
+</el-form>
+```
+* js部分
 ```js
-data() {
-  let reg = /(?!^(\d+|[a-zA-Z]+|[~!@#$%^&*?]+)$)^[\w~!@#$%^&*?]{6,12}$/
-  var validateNewPwd = (rule, value, callback) => {
-    if (!reg.test(value)) {
-      callback(new Error('密码应是6-12位数字、字母或字符！'))
-    } else if (this.form.oldPasswd === value) {
-      callback(new Error('新密码与旧密码不可一致！'))
-    } else {
-      callback()
+<script>
+export default {
+  data() {
+    // 此处自定义校验手机号码js逻辑
+    var phoneReg = /^[1][3,4,5,7,8][0-9]{9}$/
+    var validatePhone = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('号码不能为空!!'))
+      }
+      setTimeout(() => {
+        if (!phoneReg.test(value)) {
+          callback(new Error('格式有误'))
+        } else {
+          callback()
+        }
+      }, 1000)
     }
-  }
-  var validateComfirmPwd = (rule, value, callback) => {
-    if (!reg.test(value)) {
-      callback(new Error('密码应是6-12位数字、字母或字符！'))
-    } else if (this.form.newPasswd !== value) {
-      callback(new Error('确认密码与新密码不一致！'))
-    } else {
-      callback()
-    }
-  }
-  return {
-    form: {
-      newPasswd: '',
-      comfirmPwd: ''
-    },
-    rules: {
-      newPasswd: [
-        { required: true, message: '请输入新密码', trigger: 'blur' },
-        { validator: validateNewPwd, trigger: 'blur' }
-      ],
-      comfirmPwd: [
-        { required: true, message: '请输入确认密码', trigger: 'blur' },
-        { validator: validateComfirmPwd, trigger: 'blur' }
-      ]
+    return {
+      form: {    
+        phone: '',
+      },
+      // 校验规则
+      rules: {
+        // 校验手机号码，主要通过validator来指定验证器名称
+        phone: [{ required: true, validator: validatePhone, trigger: 'blur' }]
+      },
     }
   }
 }
+</script>
+// data() {
+//   let reg = /(?!^(\d+|[a-zA-Z]+|[~!@#$%^&*?]+)$)^[\w~!@#$%^&*?]{6,12}$/
+//   var validateNewPwd = (rule, value, callback) => {
+//     if (!reg.test(value)) {
+//       callback(new Error('密码应是6-12位数字、字母或字符！'))
+//     } else if (this.form.oldPasswd === value) {
+//       callback(new Error('新密码与旧密码不可一致！'))
+//     } else {
+//       callback()
+//     }
+//   }
+//   var validateComfirmPwd = (rule, value, callback) => {
+//     if (!reg.test(value)) {
+//       callback(new Error('密码应是6-12位数字、字母或字符！'))
+//     } else if (this.form.newPasswd !== value) {
+//       callback(new Error('确认密码与新密码不一致！'))
+//     } else {
+//       callback()
+//     }
+//   }
+//   return {
+//     form: {
+//       newPasswd: '',
+//       comfirmPwd: ''
+//     },
+//     rules: {
+//       newPasswd: [
+//         { required: true, message: '请输入新密码', trigger: 'blur' },
+//         { validator: validateNewPwd, trigger: 'blur' }
+//       ],
+//       comfirmPwd: [
+//         { required: true, message: '请输入确认密码', trigger: 'blur' },
+//         { validator: validateComfirmPwd, trigger: 'blur' }
+//       ]
+//     }
+//   }
+// }
 ```
 
 比较适用于<b>表单全部字段校验或需要校验字段类型比较简单</b>的数据类型
 
 ### 方法二：在el-form-item单个添加
-
+实现思路
+* html中给el-form增加 :rules="rules"
+* html中在el-form-item中增加属性 prop="名称"
+* js中直接在data中定义rules:{}
+* html部分
 ```html
-<el-form-item label="电话号码" class="el-form-item--small has-error" :prop="phoneNum" :rules="[{ required: true, message: '请输入电话号码', trigger: 'blur' }, { required: true, pattern: /^((13|14|15|16|17|18)[0-9]{1}\d{8})|((166|199|198)[0-9]{1}\d{7})$/, message: '请输入正确的电话号码', trigger: 'blur' }]">
+<el-form ref="form" :rules="rules" :model="form" label-width="300px">
+  <el-form-item label="发货地址：" prop="fAdderss">
+    <el-input class="inp" v-model="form.fAdderss" auto-complete="true"></el-input>
+    <el-button type="primary" class="btn-add" @click="onSubmit">常用地址</el-button>
+  </el-form-item>
+</el-form>
+<!-- <el-form-item label="电话号码" class="el-form-item--small has-error" :prop="phoneNum" :rules="[{ required: true, message: '请输入电话号码', trigger: 'blur' }, { required: true, pattern: /^((13|14|15|16|17|18)[0-9]{1}\d{8})|((166|199|198)[0-9]{1}\d{7})$/, message: '请输入正确的电话号码', trigger: 'blur' }]">
   <el-input v-model="v.phoneNum" :maxlength="11" placeholder clearable></el-input>
-</el-form-item>
+</el-form-item> -->
+```
+* js部分
+```js
+<script>
+export default {
+  data() {
+    return {
+      form: {
+        fAdderss: '',
+      },
+      // 校验规则
+      rules: {
+        fAdderss: [
+        { required: true, //是否必填
+          message: '地址不能为空', //规则
+          trigger: 'blur'  //何事件触发
+        },
+        //可以设置双重验证标准
+        { min: 3, max: 5,  message: '长度在 3 到 5 个字符', }
+      ]
+      }
+    }
+  }
+}
+</script>
 ```
 
 这种方式适用于需要个别检验的字段，或者表单字段有变动的校验
