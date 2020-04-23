@@ -33,6 +33,7 @@ module.exports = {
           { text: '图片相关总结', link: '/javascript/img' },
           { text: '遇到的坑', link: '/javascript/js-bug' },
           { text: 'css3', link: '/css/base-css' },
+          { text: 'git', link: '/other/git' }
         ]
       },
       {
@@ -70,6 +71,7 @@ module.exports = {
           { text: 'webpack入门', link: '/share/webpack-base' },
           { text: 'webpack优化', link: '/webpack/perform-opt' },
           { text: 'webpack随手记', link: '/share/webpack-note' },
+          { text: 'element-ui学习', link: '/other/frame/element-ui' }
         ]
       },
       // {
