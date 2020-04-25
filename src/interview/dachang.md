@@ -84,6 +84,32 @@ collapsable: true
 18. node文件查找优先级
 19. 进程和线程的区别（一个node实例就是一个进程，node是单线程，通过事件循环来实现异步）
 
+## http相关
+1. 介绍HTTPS
+2. 介绍http2.0
+3. HTTP和HTTPS的区别
+4. HTTPS怎么建立安全通道
+5. HTTPS的加密过程
+6. 介绍SSL和TLS
+7. 介绍service worker
+8. 介绍DNS解析
+9. 网络的五层模型
+10. http1.1时如何复用tcp连接
+11. tcp3次握手
+12. tcp属于哪一层（1 物理层 -> 2 数据链路层 -> 3 网络层(ip)-> 4 传输层(tcp) -> 5 应用层(http)）
+13. 从输入URL到页面加载全过程
+14. http缓存控制
+15. 缓存相关的HTTP请求头
+16. 介绍下HTTP状态码
+17. 403、301、302、304是什么
+18. Http报文的请求会有几个部分
+19. 常见Http请求头
+20. 通过什么做到并发请求
+21. Access-Control-Allow-Origin在服务端哪里配置
+22. 服务端渲染SSR
+23. csrf跨站攻击怎么解决
+
+
 
 
 

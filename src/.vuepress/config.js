@@ -35,6 +35,7 @@ module.exports = {
           { text: 'css3', link: '/css/base-css' },
           { text: 'git', link: '/other/git' },
           { text: '请求相关', link: '/technologyAccoumulation/request' },
+          { text: 'http相关', link: '/technologyAccoumulation/http.md' },
         ]
       },
       {
