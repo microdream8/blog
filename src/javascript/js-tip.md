@@ -746,6 +746,12 @@ setcookie(name,value,expire,path,domain,secure)
 
 第六个：secure，值cookie是否仅通过安全的https,值为0或1，如果值为1，则cookie只能在https连接上有效，默认值为0，表示cookei在http和https连接上都有效。
 
+## js事件中传递自定义参数和其它参数
+例如change事件传递e(自带的参数)还有自己想传递的参数params
+```html
+<input @change="((e)=>{changeStatus(e, params)})" />
+```
+
 ## 函数柯里化
 ```js
 /**

@@ -2,7 +2,7 @@ module.exports = {
   base: '/blog/',
   dest: 'docs',
   title:'lei哥的技术博客',
-  description:'当你处于一个上升状态时，你会体会到工作带给你的成就感和物质回报，你不会想回头多看一眼那些努力挣扎却又收效甚微的过往，你只会感叹为什么没有早点开始。',
+  description:'生活中，百分之八十的问题可以运用百分之二十的知识来解决，而剩下的百分之二十的问题需要运用百分之八十的知识来解决。准备好那百分之八十的知识，才会在遇到有挑战的问题时更加游刃有余，机会永远留给准备好的人。',
   head:[
     ['link', { rel: 'icon', href: 'favicon.ico' }],
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
