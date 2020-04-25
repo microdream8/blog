@@ -241,3 +241,31 @@ deletePhone(item) {
 渲染出来的html为：
 
 <img src="../../imgs/other/frame/ele-ui_4.png" style="width: 80%;">
+
+### form提交时，滚动到第一个错误信息处
+```js
+this.$refs['form'].validate(valid => {
+if (valid) {
+// to do
+} else {
+　　setTimeout(() => {
+　　const isError = document.querySelector('.is-error');
+　　const input = isError.querySelector('input')
+　　input.focus();
+}, 1000)
+return false;
+}
+```
+
+## 图片上传相关
+如果要自定义上传图片的展示效果，需要两步：
+
+1. show-file-list： false; 这个属性会不展示上传的图片列表
+2. 自己添加div标签，根据个人口味(style)和布局来展示图片列表，这样的好处，还有图片的一些操作，比如删除，预览的位置，图标都可以自定义
+3. ps: 目前不支持编辑图片
+4. 在表单中引入el-upload，验证的时候要调用
+```js
+this.$refs['form'].clearValidate(prop) // 不然的话，错误信息会一直在，prop为字段名
+```
+
+
