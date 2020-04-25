@@ -20,16 +20,18 @@ module.exports = {
           // { text: '性能优化', link: '/share/opt'},
         ]
       },
-      {
-        text: '重点技术',
-        items: [
-          { text: '深入skulpt', link: '/skulpt/1'},
-          { text: '深入scratch', link: '/scratch/links' },
-        ]
-      },
+      // {
+      //   text: '重点技术',
+      //   items: [
+          // { text: '深入skulpt', link: '/skulpt/1'},
+          // { text: '深入scratch', link: '/scratch/links' },
+      //   ]
+      // },
       {
         text: '技术积累',
         items: [
+          { text: '深入skulpt', link: '/skulpt/1'},
+          { text: '深入scratch', link: '/scratch/links' },
           { text: '图片相关总结', link: '/javascript/img' },
           { text: '遇到的坑', link: '/javascript/js-bug' },
           { text: 'css3', link: '/css/base-css' },
