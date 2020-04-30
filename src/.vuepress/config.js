@@ -16,6 +16,7 @@ module.exports = {
         items: [
           { text: '环境配置', link: '/share/env'},
           { text: 'markdown语法', link: '/share/md' },
+          { text: 'editorconfig', link: '/share/config' },
           // { text: 'eslint规则', link: '/share/eslint'},
           // { text: '性能优化', link: '/share/opt'},
         ]
