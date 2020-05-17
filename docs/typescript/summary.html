@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>讲讲ts | lei哥的技术博客</title>
+    <meta name="description" content="生活中，百分之八十的问题可以运用百分之二十的知识来解决，而剩下的百分之二十的问题需要运用百分之八十的知识来解决。准备好那百分之八十的知识，才会在遇到有挑战的问题时更加游刃有余，机会永远留给准备好的人。">
+    <meta name="generator" content="VuePress 1.3.1">
+    <link rel="icon" href="favicon.ico">
+  <meta name="theme-color" content="#3eaf7c">
+    
+    <link rel="preload" href="/blog/assets/css/0.styles.afd5c948.css" as="style"><link rel="preload" href="/blog/assets/js/app.573bf81a.js" as="script"><link rel="preload" href="/blog/assets/js/2.3ca9670a.js" as="script"><link rel="preload" href="/blog/assets/js/48.39b05f95.js" as="script"><link rel="prefetch" href="/blog/assets/js/10.2ecb97e5.js"><link rel="prefetch" href="/blog/assets/js/11.e3731d23.js"><link rel="prefetch" href="/blog/assets/js/12.6c26d675.js"><link rel="prefetch" href="/blog/assets/js/13.7574b18a.js"><link rel="prefetch" href="/blog/assets/js/14.007320e3.js"><link rel="prefetch" href="/blog/assets/js/15.86bc347b.js"><link rel="prefetch" href="/blog/assets/js/16.e801a5f9.js"><link rel="prefetch" href="/blog/assets/js/17.46113918.js"><link rel="prefetch" href="/blog/assets/js/18.7fc0700c.js"><link rel="prefetch" href="/blog/assets/js/19.f4b829d7.js"><link rel="prefetch" href="/blog/assets/js/20.b2cf6b23.js"><link rel="prefetch" href="/blog/assets/js/21.f5c09e73.js"><link rel="prefetch" href="/blog/assets/js/22.9c61b28d.js"><link rel="prefetch" href="/blog/assets/js/23.dd2ba2ff.js"><link rel="prefetch" href="/blog/assets/js/24.0c506779.js"><link rel="prefetch" href="/blog/assets/js/25.812290ae.js"><link rel="prefetch" href="/blog/assets/js/26.d43fe259.js"><link rel="prefetch" href="/blog/assets/js/27.e9b8adf5.js"><link rel="prefetch" href="/blog/assets/js/28.4c9f8c11.js"><link rel="prefetch" href="/blog/assets/js/29.de52dc01.js"><link rel="prefetch" href="/blog/assets/js/3.762adef0.js"><link rel="prefetch" href="/blog/assets/js/30.86ede810.js"><link rel="prefetch" href="/blog/assets/js/31.c2b05efd.js"><link rel="prefetch" href="/blog/assets/js/32.b3afffdd.js"><link rel="prefetch" href="/blog/assets/js/33.31b6ca76.js"><link rel="prefetch" href="/blog/assets/js/34.d65c2d0e.js"><link rel="prefetch" href="/blog/assets/js/35.9198d0e5.js"><link rel="prefetch" href="/blog/assets/js/36.8f00cb78.js"><link rel="prefetch" href="/blog/assets/js/37.34e8acc4.js"><link rel="prefetch" href="/blog/assets/js/38.bd3ca99d.js"><link rel="prefetch" href="/blog/assets/js/39.c6559f93.js"><link rel="prefetch" href="/blog/assets/js/4.5acb77db.js"><link rel="prefetch" href="/blog/assets/js/40.74c22b7a.js"><link rel="prefetch" href="/blog/assets/js/41.2bd19d0f.js"><link rel="prefetch" href="/blog/assets/js/42.1180eaa2.js"><link rel="prefetch" href="/blog/assets/js/43.ef721703.js"><link rel="prefetch" href="/blog/assets/js/44.e75c1373.js"><link rel="prefetch" href="/blog/assets/js/45.a8ac1d2b.js"><link rel="prefetch" href="/blog/assets/js/46.315d80a2.js"><link rel="prefetch" href="/blog/assets/js/47.3656396f.js"><link rel="prefetch" href="/blog/assets/js/49.d57f8235.js"><link rel="prefetch" href="/blog/assets/js/5.bafd0953.js"><link rel="prefetch" href="/blog/assets/js/50.fdfbbe3d.js"><link rel="prefetch" href="/blog/assets/js/51.c31ff511.js"><link rel="prefetch" href="/blog/assets/js/52.2d6384be.js"><link rel="prefetch" href="/blog/assets/js/53.8934a7b3.js"><link rel="prefetch" href="/blog/assets/js/6.60d89028.js"><link rel="prefetch" href="/blog/assets/js/7.df4442eb.js"><link rel="prefetch" href="/blog/assets/js/8.9243f09b.js"><link rel="prefetch" href="/blog/assets/js/9.240cc288.js">
+    <link rel="stylesheet" href="/blog/assets/css/0.styles.afd5c948.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/blog/" class="home-link router-link-active"><!----> <span class="site-name">lei哥的技术博客</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="教程" class="dropdown-title"><span class="title">教程</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/share/env.html" class="nav-link">
+  环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/blog/share/md.html" class="nav-link">
+  markdown语法
+</a></li><li class="dropdown-item"><!----> <a href="/blog/share/config.html" class="nav-link">
+  editorconfig
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="技术积累" class="dropdown-title"><span class="title">技术积累</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/skulpt/1.html" class="nav-link">
+  深入skulpt
+</a></li><li class="dropdown-item"><!----> <a href="/blog/scratch/links.html" class="nav-link">
+  深入scratch
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/img.html" class="nav-link">
+  图片相关总结
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/js-bug.html" class="nav-link">
+  遇到的坑
+</a></li><li class="dropdown-item"><!----> <a href="/blog/css/base-css.html" class="nav-link">
+  css3
+</a></li><li class="dropdown-item"><!----> <a href="/blog/other/git.html" class="nav-link">
+  git
+</a></li><li class="dropdown-item"><!----> <a href="/blog/technologyAccoumulation/request.html" class="nav-link">
+  请求相关
+</a></li><li class="dropdown-item"><!----> <a href="/blog/technologyAccoumulation/http.html" class="nav-link">
+  http相关
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JS开发总结" class="dropdown-title"><span class="title">JS开发总结</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/javascript/js-base.html" class="nav-link">
+  js基础总结
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/inherit.html" class="nav-link">
+  js继承
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/inherit2.html" class="nav-link">
+  js继承(二)
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/obj.html" class="nav-link">
+  面向对象
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/yinyong.html" class="nav-link">
+  引用对象
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/js-tip.html" class="nav-link">
+  js各种知识点
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/yibu.html" class="nav-link">
+  异步汇总
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/core.html" class="nav-link">
+  跨域相关
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/es6.html" class="nav-link">
+  ES6知识
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/tool-fun.html" class="nav-link">
+  工具函数总结
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/write-code.html" class="nav-link">
+  手写代码
+</a></li><li class="dropdown-item"><!----> <a href="/blog/interview/dachang.html" class="nav-link">
+  面试题总结
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="移动端" class="dropdown-title"><span class="title">移动端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/mobile/wechat.html" class="nav-link">
+  公众号开发总结
+</a></li><li class="dropdown-item"><!----> <a href="/blog/mobile/optimize.html" class="nav-link">
+  移动端性能优化(一)
+</a></li><li class="dropdown-item"><!----> <a href="/blog/mobile/optimize2.html" class="nav-link">
+  移动端性能优化(二)
+</a></li><li class="dropdown-item"><!----> <a href="/blog/mobile/mobile-bug.html" class="nav-link">
+  移动端的那些坑
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="框架" class="dropdown-title"><span class="title">框架</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/vue/knowledgePoint.html" class="nav-link">
+  Vue小知识
+</a></li><li class="dropdown-item"><!----> <a href="/blog/vue/component.html" class="nav-link">
+  组件化总结
+</a></li><li class="dropdown-item"><!----> <a href="/blog/share/uni-app.html" class="nav-link">
+  Uniapp学习
+</a></li><li class="dropdown-item"><!----> <a href="/blog/share/webpack-base.html" class="nav-link">
+  webpack入门
+</a></li><li class="dropdown-item"><!----> <a href="/blog/webpack/perform-opt.html" class="nav-link">
+  webpack优化
+</a></li><li class="dropdown-item"><!----> <a href="/blog/share/webpack-note.html" class="nav-link">
+  webpack随手记
+</a></li><li class="dropdown-item"><!----> <a href="/blog/other/frame/element-ui.html" class="nav-link">
+  element-ui学习
+</a></li></ul></div></div><div class="nav-item"><a href="/blog/url/fe.html" class="nav-link">
+  常用网址
+</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="教程" class="dropdown-title"><span class="title">教程</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/share/env.html" class="nav-link">
+  环境配置
+</a></li><li class="dropdown-item"><!----> <a href="/blog/share/md.html" class="nav-link">
+  markdown语法
+</a></li><li class="dropdown-item"><!----> <a href="/blog/share/config.html" class="nav-link">
+  editorconfig
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="技术积累" class="dropdown-title"><span class="title">技术积累</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/skulpt/1.html" class="nav-link">
+  深入skulpt
+</a></li><li class="dropdown-item"><!----> <a href="/blog/scratch/links.html" class="nav-link">
+  深入scratch
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/img.html" class="nav-link">
+  图片相关总结
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/js-bug.html" class="nav-link">
+  遇到的坑
+</a></li><li class="dropdown-item"><!----> <a href="/blog/css/base-css.html" class="nav-link">
+  css3
+</a></li><li class="dropdown-item"><!----> <a href="/blog/other/git.html" class="nav-link">
+  git
+</a></li><li class="dropdown-item"><!----> <a href="/blog/technologyAccoumulation/request.html" class="nav-link">
+  请求相关
+</a></li><li class="dropdown-item"><!----> <a href="/blog/technologyAccoumulation/http.html" class="nav-link">
+  http相关
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="JS开发总结" class="dropdown-title"><span class="title">JS开发总结</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/javascript/js-base.html" class="nav-link">
+  js基础总结
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/inherit.html" class="nav-link">
+  js继承
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/inherit2.html" class="nav-link">
+  js继承(二)
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/obj.html" class="nav-link">
+  面向对象
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/yinyong.html" class="nav-link">
+  引用对象
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/js-tip.html" class="nav-link">
+  js各种知识点
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/yibu.html" class="nav-link">
+  异步汇总
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/core.html" class="nav-link">
+  跨域相关
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/es6.html" class="nav-link">
+  ES6知识
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/tool-fun.html" class="nav-link">
+  工具函数总结
+</a></li><li class="dropdown-item"><!----> <a href="/blog/javascript/write-code.html" class="nav-link">
+  手写代码
+</a></li><li class="dropdown-item"><!----> <a href="/blog/interview/dachang.html" class="nav-link">
+  面试题总结
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="移动端" class="dropdown-title"><span class="title">移动端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/mobile/wechat.html" class="nav-link">
+  公众号开发总结
+</a></li><li class="dropdown-item"><!----> <a href="/blog/mobile/optimize.html" class="nav-link">
+  移动端性能优化(一)
+</a></li><li class="dropdown-item"><!----> <a href="/blog/mobile/optimize2.html" class="nav-link">
+  移动端性能优化(二)
+</a></li><li class="dropdown-item"><!----> <a href="/blog/mobile/mobile-bug.html" class="nav-link">
+  移动端的那些坑
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="框架" class="dropdown-title"><span class="title">框架</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/vue/knowledgePoint.html" class="nav-link">
+  Vue小知识
+</a></li><li class="dropdown-item"><!----> <a href="/blog/vue/component.html" class="nav-link">
+  组件化总结
+</a></li><li class="dropdown-item"><!----> <a href="/blog/share/uni-app.html" class="nav-link">
+  Uniapp学习
+</a></li><li class="dropdown-item"><!----> <a href="/blog/share/webpack-base.html" class="nav-link">
+  webpack入门
+</a></li><li class="dropdown-item"><!----> <a href="/blog/webpack/perform-opt.html" class="nav-link">
+  webpack优化
+</a></li><li class="dropdown-item"><!----> <a href="/blog/share/webpack-note.html" class="nav-link">
+  webpack随手记
+</a></li><li class="dropdown-item"><!----> <a href="/blog/other/frame/element-ui.html" class="nav-link">
+  element-ui学习
+</a></li></ul></div></div><div class="nav-item"><a href="/blog/url/fe.html" class="nav-link">
+  常用网址
+</a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>讲讲ts</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/blog/typescript/summary.html#类型语言之数据结构" class="sidebar-link">类型语言之数据结构</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/blog/typescript/summary.html#原始类型" class="sidebar-link">原始类型</a></li><li class="sidebar-sub-header"><a href="/blog/typescript/summary.html#非原始类型" class="sidebar-link">非原始类型</a></li></ul></li><li><a href="/blog/typescript/summary.html#为什么typescript是好的" class="sidebar-link">为什么TypeScript是好的</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/blog/typescript/summary.html#类型能让你「大概」知道代码对不对" class="sidebar-link">类型能让你「大概」知道代码对不对</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/blog/typescript/summary.html#听说-ts-只适合大型项目？" class="sidebar-link">听说 TS 只适合大型项目？</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/blog/typescript/summary.html#万一过几年-ts-不火了呢？" class="sidebar-link">万一过几年 TS 不火了呢？</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/blog/typescript/summary.html#js-岂不是白学了？" class="sidebar-link">JS 岂不是白学了？</a><ul class="sidebar-sub-headers"></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="源起"><a href="#源起" class="header-anchor">#</a> 源起</h1> <p>JavaScript 已经占领了世界上的每一个角落，能访问网页的地方，基本上就有 JavaScript 在运作，然而 JavaScript 因为其动态、弱类型、解释型语言的特性、出错的调用栈隐蔽，使得开发者不仅在调试错误上花费大把时间，在团队协作开发时理解队友编写代码也极其困难。TypeScript 的出现极大的解决了上面的问题，TypeScript -- 一个 JavaScript 的超集，它作为一门编译型语言，提供了对类型系统和最新 ES 语法的支持，使得我们可以在享受使用 ES 最新语法的编写代码的同时，还能在写代码的过程中就规避很多潜在的语法、语义错误；并且其提供的类型系统使得我们可以在团队协作编写代码时可以很容易的了解队友代码的含义：输入和输出，大大提高了团队协作编写大型业务应用的效率。在现代 JavaScript 世界中，已经有很多大型库在使用 TypeScript 重构，包括前端三大框架：React、Vue、Angular，还有知名的组件库 antd，material，在很多公司内部的大型业务应用也在用 TypeScript 开发甚至重写现有的应用，所以如果你想编写大型业务应用或库，或者想写出更利于团队协作的代码，那么 TypeScript 有十足的理由值得你学习！本文是 TypeScript 系列教程的第一篇，主要通过使用 antd 组件库实战演练一个 TypeScript 版本 React TodoList 应用来讲解 TypeScript 的语法，使得你能在学会语法的同时还能完成一个实际可运行的项目。</p> <h1 id="typescript初探"><a href="#typescript初探" class="header-anchor">#</a> TypeScript初探</h1> <p>TS 是一门静态编程语言，它是 JavaScript 的超集，主要包含着两类属性：</p> <ul><li>属于 JavaScript 端的编程语言特性，使得我们可以执行各种 JavaScript 相关的操作：变量声明、编写 if/else 控制流、使用循环处理重复任务、使用函数执行特定的任务块、使用类来组织和复用代码和模拟真实世界的操作等，还有新特性比如：装饰器、Iterator、Generator 这些。这类特性在此篇文章中，我们默认你已经很清楚了，不会做过多的讲解。</li> <li>属于 TypeScript 端独有的特性：类型，它也具有一套编程语言的特性，比如标志一个变量是 string 类型，一个函数的参数有三个，它们的类型分别是 string/number/boolean，返回类型为 never等，这是基础类型，我们甚至可以基于类型进行编程，使用类型版本的控制、组织结构来完成高级类型的编写，进而将类型附着在 JavaScript 对应的编程语言特性上，将 JS 静态化，使得我们可以在编译期间就能发现类型上的错误，这一特性是我们本篇文章的重点。</li></ul> <p>好的，读到这里，相比很多读者已经清楚了，其实 TS 没什么神秘的，主要就是设计了一套类似编程语言的类型语言，然后将这些类型附着在原 JavaScript 的语言之上，给其加上类型限制使得其静态化，进而可以快速的在编写时发现很多潜在的问题，帮助我们编写错误率更低，更适合团队协作的代码，这也是 TypeScript 适合编写大型的业务应用的原因。</p> <h2 id="类型语言之数据结构"><a href="#类型语言之数据结构" class="header-anchor">#</a> 类型语言之数据结构</h2> <p>其中 TS 数据结构又包含原始类型、非原始类型、特殊类型和高级类型等几类。我们将结合在 TS 类型侧的定义，以及附着在 JS 上进行实战来讲解。</p> <h3 id="原始类型"><a href="#原始类型" class="header-anchor">#</a> 原始类型</h3> <h4 id="ts类型侧的定义"><a href="#ts类型侧的定义" class="header-anchor">#</a> TS类型侧的定义</h4> <p>和 JS 中的原始数据类型一样，TS 对应着一致的类型定义，包括下面八种：</p> <ul><li>number</li> <li>string</li> <li>boolean</li> <li>null</li> <li>undefined</li> <li>void</li> <li>symbol</li> <li>bigint</li></ul> <div class="custom-block warning"><p class="custom-block-title">提示</p> <p>其中前六种是 ES5 中就有的，symbol 从 ES6 开始引入，bigint 是 ES2020 新引进的。</p></div> <p>上面是 TS 的原始类型，我们之前提到 TS 就是将类型附着在 JS 上，将其类型化，那么我们来看看上面的原始类型如何附着在 JS 上，将其类型化。</p> <h4 id="附着在js的实战"><a href="#附着在js的实战" class="header-anchor">#</a> 附着在JS的实战</h4> <p>TS 通过独特的冒号语法来将其类型侧定义的类型附着在 JS 上，我们来看几个例子：</p> <p>用 JS 语言来写图雀社区的 Slogan，我们一般会这么写：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> tutureSlogan <span class="token operator">=</span> <span class="token string">'Hello,Wrold!'</span><span class="token punctuation">;</span>
+</code></pre></div><p>我们可以确定，这句 Slogan 是一个 string 类型的，所以我们用对应的 TS 类型附着在其变量定义上如下：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> tutureSlogan<span class="token operator">:</span> string <span class="token operator">=</span> <span class="token string">'Hello,Wrold!'</span><span class="token punctuation">;</span>
+</code></pre></div><p>这样我们就给原 JS 的 tutureSlogan  变量加上了类型定义，它是一个 string  类型的变量，通过这样的操作，原 JS 变量的类型就被静态化了，在初始化时，就不能再赋值其他的类型给这个 tutureSlogan 变量了，比如我们将 number 类型的字面量赋值给 tutureSlogan ，就会报错：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> tutureSlogan<span class="token operator">:</span> string <span class="token operator">=</span> <span class="token number">5201314</span> <span class="token comment">// 报错 Type '5201314' is not assignable to Type 'string'</span>
+</code></pre></div><h4 id="小结"><a href="#小结" class="header-anchor">#</a> 小结</h4> <p>我们上面说到了 TS 的原始类型，一共有八个之多，并且通过其中的 string 类型来讲解了如何将 TS 类型附着在原 JS 语法上以静态化 JS 语言，剩下的 7 个原始类型的用法和 string 类型类似，我们将在之后的讲解中逐渐用到其中的类型。</p> <h3 id="非原始类型"><a href="#非原始类型" class="header-anchor">#</a> 非原始类型</h3> <h4 id="ts类型侧的定义-2"><a href="#ts类型侧的定义-2" class="header-anchor">#</a> TS类型侧的定义</h4> <p>同样的 JS 中的非原始数据类型一样，TS 中也存在非原始类型，表示除了八种原始类型之外的类型，非原始类型也称为是 object 类型。</p> <p>实际上 TS 中还有几个常见的非原始类型，例举如下：</p> <ul><li>array</li> <li>tuple</li> <li>enum</li></ul> <p>且因为它们属于 object 类型，所以 object 类型实际上就代表了非原始类型。在上面的三个类型以及其父类型 object 中，array 和 object 其实我们应该有点熟悉，至于 tuple 和 enum 则是 TS 中新增的类型，JS 中正式提案中目前是没有的。讲完了类型侧定义，我们马上来实践一下上面的 array 和 enum 非原始类型。</p> <h4 id="array-类型附着实战"><a href="#array-类型附着实战" class="header-anchor">#</a> array 类型附着实战</h4> <p>其中 array 类型我们比较熟悉，但这里有个不同就是之前我们的 JS 因为是动态语言，所以一个数组里面可以有各种不同的数据类型项，比如我们看如下 JS 语句：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'1'</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">'3'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+</code></pre></div><p>可以看到，从 TS 的角度去看这个数组变量 arr 所包含的类型，存在字符串类型 '1' 和 '3' ，以及数字类型 2 。但 TS 总的数组类型要求数组中的元素都是同一个类型，不允许动态变化，比如我们为上面的数组变量 arr 声明类型应该如下：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> arr<span class="token operator">:</span> string<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'1'</span><span class="token punctuation">,</span> <span class="token string">'2'</span><span class="token punctuation">,</span> <span class="token string">'3'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+</code></pre></div><p>可以看到，我们给变量 arr 声明了 string[] 类型，即一个 string 类型后面跟着一个数组标志，表示是字符串数组类型，当声明了 string[] 类型之后，我们需要把之前的数组 2 改成字符串 '2' 。</p> <p>我们注意到 array 类型，它要求数组中每项的类型都一样，一般应用在数组的长度未知的情况，用特定的类型，比如 string 类型来约束数组的每一项。</p> <p>然而从 JS 转过来的同学大多数同学可能对这个 array 类型不适应了，我们 JS 的同学经常会遇到编写一个数组，其中的多项的类型不一样，就和我们上面的 JS arr 的项一样，既有 string 类型又有 number 类型，那这该怎么办了？还好！TS 的设计者也为我们考虑到了这一点，那就是我们下面要讲到的 tuple  （元组）类型。</p> <h4 id="tuple-类型附着实战"><a href="#tuple-类型附着实战" class="header-anchor">#</a> tuple 类型附着实战</h4> <p>大家可能对 tuple （元组）类型很陌生了，其实元组是一种特殊的数组类型，它主要用于这样的场景：“一个数组的项数已知，其中每项的类型也已知”，这句话说起来可能比较绕，我们用上面讲数组的例子来讲元组：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'1'</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">'3'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+</code></pre></div><h1 id="前言"><a href="#前言" class="header-anchor">#</a> 前言</h1> <h2 id="为什么typescript是好的"><a href="#为什么typescript是好的" class="header-anchor">#</a> 为什么TypeScript是好的</h2> <p>如果你现在还没有开始学习 TS，肯定是因为对 TS 有所顾虑。去问问用了 TS 的前端感觉怎么样吧，基本没有一个说后悔的。所以这种顾虑是完全没有必要的。</p> <p>那么 TS 为什么这么好呢？接下来我们从理论上解释一下。</p> <ol><li>写代码最怕什么？代码出错，也就是 bug。</li> <li>如何避免 bug？运行代码看结果，或者添加各种测试。</li> <li>现在前端并不流行单元测试，所以只能运行代码看结果（比如刷新页面，然后用鼠标点点点，看是否能运行成功）</li> <li>但当你的前端应用非常大的时候，你不可能每次改代码之后去所有页面上点一遍，因为页面太多了。</li> <li>所以前端选择模块化，让一次代码改动影响的页面尽量少。但是即使这样，你依然无法通过鼠标点击测试来运行所有代码，因为你可能还需要测试多种不同的账户。</li> <li>这样做太麻烦了。有没有什么办法能让我快速知道「代码有bug没」</li></ol> <p>这是一个重要的问题：有没有什么办法能让我快速知道「代码有bug没」。</p> <p>为了说明类型是如何解决这个问题的，我们先来介绍一种最简单的类型：正负数。</p> <p>我们把实数分为三种类型：正数、负数和0。</p> <p>然后看下面这个等式：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token number">28937829</span> <span class="token operator">*</span> <span class="token operator">-</span><span class="token number">1239282</span> <span class="token operator">=</span> <span class="token number">35862130598778</span>
+</code></pre></div><p>聪明的你一眼就看出这个等式不对。为什么？因为「正数」乘以「负数」必然得到「负数」。所以我们根本不用运行这个乘法，就知道这个结果不对。</p> <p>这就是类型好处。</p> <h2 id="类型能让你「大概」知道代码对不对"><a href="#类型能让你「大概」知道代码对不对" class="header-anchor">#</a> 类型能让你「大概」知道代码对不对</h2> <p>TS 就是在 JS 上加上类型声明，这样我们就能知道代码是否「大概」正确。</p> <p>另外，这种方式速度非常快，快到你只要修改代码，TS 就能告诉你代码是否「大概」正确。</p> <p>从而避免很多 bug。</p> <p>你只需要稍微花一点点时间，就能让代码质量提升，何乐不为呢？</p> <h2 id="听说-ts-只适合大型项目？"><a href="#听说-ts-只适合大型项目？" class="header-anchor">#</a> 听说 TS 只适合大型项目？</h2> <p>错，只要是有 bug 的 JS 项目，都可以用 TS 替代 JS 从而减少 bug。</p> <p>所以无论是小项目还是大项目，都有必要使用 TS。</p> <h2 id="万一过几年-ts-不火了呢？"><a href="#万一过几年-ts-不火了呢？" class="header-anchor">#</a> 万一过几年 TS 不火了呢？</h2> <p>这个问题问得好，前端发展这么快，很多东西都是火几年就不火了，导致后期想招人维护都难（比如 AngularJS 1）。
+但是 TS 不存在这个问题。为什么？
+因为目前前端三大框架全都支持 TS 了：</p> <p>Angular 很早就支持 TypeScript 了，而且还把 JS 从自己的名字里去掉了：AngluarJS -&gt; Angular。甚至连 Angular 入门文档里的例子都默认是 TS 版本的。用 JS 写 Angular 不是不可以，只是会显得很「奇怪」，明明有更好的 TS，为什么会有人用 JS。
+Vue 3.0 用 TS 重写了，为了更好的支持 TS，甚至放弃了原本计划推出的 class API。
+React 一开始对 TS 的支持也是非常丝滑。不过 React 并没有强绑定到 TS。</p> <p>如果有一年 TS 不火了，上面框架的维护者会提前为你想好升级方案的，你就不必过多担心了。
+毕竟背靠大树好乘凉。</p> <h2 id="js-岂不是白学了？"><a href="#js-岂不是白学了？" class="header-anchor">#</a> JS 岂不是白学了？</h2> <p>No No No，TS 里面包含了 JS 的所有语法，所以你在用 TS 的时候，实际上还是在用 JS。</p> <p>也就是说 JS 的魂还在，我们只是不再单独使用 JS 了。</p> <p>参考来源：
+https://juejin.im/post/5d19b0305188254e2e4e78e8
+https://juejin.im/post/5e8a831cf265da48046988cb</p></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/blog/assets/js/app.573bf81a.js" defer></script><script src="/blog/assets/js/2.3ca9670a.js" defer></script><script src="/blog/assets/js/48.39b05f95.js" defer></script>
+  </body>
+</html>
