@@ -39,6 +39,7 @@ module.exports = {
           { text: 'git', link: '/other/git' },
           { text: '请求相关', link: '/technologyAccoumulation/request' },
           { text: 'http相关', link: '/technologyAccoumulation/http.md' },
+          { text: '讲讲ts', link: '/typescript/summary.md' },
         ]
       },
       {
