@@ -4,9 +4,10 @@ sidebar: auto
 collapsable: true
 ---
 # 源起
-JavaScript 已经占领了世界上的每一个角落，能访问网页的地方，基本上就有 JavaScript 在运作，然而 JavaScript 因为其动态、弱类型、解释型语言的特性、出错的调用栈隐蔽，使得开发者不仅在调试错误上花费大把时间，在团队协作开发时理解队友编写代码也极其困难。TypeScript 的出现极大的解决了上面的问题，TypeScript -- 一个 JavaScript 的超集，它作为一门编译型语言，提供了对类型系统和最新 ES 语法的支持，使得我们可以在享受使用 ES 最新语法的编写代码的同时，还能在写代码的过程中就规避很多潜在的语法、语义错误；并且其提供的类型系统使得我们可以在团队协作编写代码时可以很容易的了解队友代码的含义：输入和输出，大大提高了团队协作编写大型业务应用的效率。在现代 JavaScript 世界中，已经有很多大型库在使用 TypeScript 重构，包括前端三大框架：React、Vue、Angular，还有知名的组件库 antd，material，在很多公司内部的大型业务应用也在用 TypeScript 开发甚至重写现有的应用，所以如果你想编写大型业务应用或库，或者想写出更利于团队协作的代码，那么 TypeScript 有十足的理由值得你学习！本文是 TypeScript 系列教程的第一篇，主要通过使用 antd 组件库实战演练一个 TypeScript 版本 React TodoList 应用来讲解 TypeScript 的语法，使得你能在学会语法的同时还能完成一个实际可运行的项目。
+JavaScript 已经占领了世界上的每一个角落，能访问网页的地方，基本上就有 JavaScript 在运作，然而 JavaScript **因为其动态、弱类型、解释型语言的特性、出错的调用栈隐蔽，使得开发者不仅在调试错误上花费大把时间，在团队协作开发时理解队友编写代码也极其困难**。TypeScript 的出现极大的解决了上面的问题，TypeScript -- 一个 JavaScript 的超集，它作为一门编译型语言，提供了对类型系统和最新 ES 语法的支持，使得我们可以在享受使用 ES 最新语法的编写代码的同时，还能在写代码的过程中就规避很多潜在的语法、语义错误；并且其提供的类型系统使得我们可以在团队协作编写代码时可以很容易的了解队友代码的含义：输入和输出，大大提高了团队协作编写大型业务应用的效率。在现代 JavaScript 世界中，已经有很多大型库在使用 TypeScript 重构，包括前端三大框架：React、Vue、Angular，还有知名的组件库 antd，material，在很多公司内部的大型业务应用也在用 TypeScript 开发甚至重写现有的应用，所以如果你想编写大型业务应用或库，或者想写出更利于团队协作的代码，那么 TypeScript 有十足的理由值得你学习！
 
 # TypeScript初探
+TypeScript 是 JavaScript 的超集, 支持 JavaScript 的写法，并且提供类型检查，TypeScript 提供了一些面向对象编程的能力。
 TS 是一门静态编程语言，它是 JavaScript 的超集，主要包含着两类属性：
 * 属于 JavaScript 端的编程语言特性，使得我们可以执行各种 JavaScript 相关的操作：变量声明、编写 if/else 控制流、使用循环处理重复任务、使用函数执行特定的任务块、使用类来组织和复用代码和模拟真实世界的操作等，还有新特性比如：装饰器、Iterator、Generator 这些。这类特性在此篇文章中，我们默认你已经很清楚了，不会做过多的讲解。
 * 属于 TypeScript 端独有的特性：类型，它也具有一套编程语言的特性，比如标志一个变量是 string 类型，一个函数的参数有三个，它们的类型分别是 string/number/boolean，返回类型为 never等，这是基础类型，我们甚至可以基于类型进行编程，使用类型版本的控制、组织结构来完成高级类型的编写，进而将类型附着在 JavaScript 对应的编程语言特性上，将 JS 静态化，使得我们可以在编译期间就能发现类型上的错误，这一特性是我们本篇文章的重点。
@@ -33,23 +34,67 @@ TS 是一门静态编程语言，它是 JavaScript 的超集，主要包含着�
   其中前六种是 ES5 中就有的，symbol 从 ES6 开始引入，bigint 是 ES2020 新引进的。
 :::
 
+**never**表示永远不存在值的类型，没有值可以赋值给 Never 类型
+
+**any**表示可以成为任何类型，比如设定一个变量 没想好它是什么类型的，但是又要通过类型检查，可以设定为 Any
+
+**void**表示没有任何类型,比如一些函数没有返回值，可以把这个函数设置为 void 型
+
 上面是 TS 的原始类型，我们之前提到 TS 就是将类型附着在 JS 上，将其类型化，那么我们来看看上面的原始类型如何附着在 JS 上，将其类型化。
 
 #### 附着在JS的实战
 TS 通过独特的冒号语法来将其类型侧定义的类型附着在 JS 上，我们来看几个例子：
 
-用 JS 语言来写图雀社区的 Slogan，我们一般会这么写：
-```js
-const tutureSlogan = 'Hello,Wrold!';
+* 字符串
+```ts
+const str = 'Hello,Wrold!';
 ```
-我们可以确定，这句 Slogan 是一个 string 类型的，所以我们用对应的 TS 类型附着在其变量定义上如下：
-```js
-const tutureSlogan: string = 'Hello,Wrold!';
+我们可以确定，这是一个 string 类型的，所以我们用对应的 TS 类型附着在其变量定义上如下：
+```ts
+const str: string = 'Hello,Wrold!';
 ```
-这样我们就给原 JS 的 tutureSlogan  变量加上了类型定义，它是一个 string  类型的变量，通过这样的操作，原 JS 变量的类型就被静态化了，在初始化时，就不能再赋值其他的类型给这个 tutureSlogan 变量了，比如我们将 number 类型的字面量赋值给 tutureSlogan ，就会报错：
-```js
-const tutureSlogan: string = 5201314 // 报错 Type '5201314' is not assignable to Type 'string'
+这样我们就给原 JS 的 str  变量加上了类型定义，它是一个 string  类型的变量，通过这样的操作，原 JS 变量的类型就被静态化了，在初始化时，就不能再赋值其他的类型给这个 str 变量了，比如我们将 number 类型的字面量赋值给 str ，就会报错：
+```ts
+const str: string = 5201314 // 报错 Type '5201314' is not assignable to Type 'string'
 ```
+
+* 空值
+表示没有任何类型，当一个函数没有返回值时，你通常会见到其返回值类型是 void：
+```ts
+function warnUser(): void {
+    alert("This is my warning message");
+}
+```
+实际上只有null和undefined可以赋给void:
+```ts
+const a: void = undefined
+```
+
+* Null 和 Undefined
+TypeScript 里，undefined 和 null 两者各自有自己的类型分别叫做 undefined 和 null，和void相似，它们的本身的类型用处不是很大：
+
+```ts
+let a: undefined = undefined;
+let b: null = null;
+```
+
+默认情况下 null 和 undefined 是所有类型的子类型，就是说你可以把 null 和 undefined 赋值给 number 类型的变量。
+
+但是在正式项目中一般都是开启 --strictNullChecks 检测的，即 null 和 undefined 只能赋值给 any 和它们各自(一个例外是 undefined 是也可以分配给void)，可以规避非常多的问题。
+
+* any
+有时候，我们会想要为那些在编程阶段还不清楚类型的变量指定一个类型。
+
+这些值可能来自于动态的内容，比如来自用户输入或第三方代码库。
+
+这种情况下，我们不希望类型检查器对这些值进行检查而是直接让它们通过编译阶段的检查。 那么我们可以使用any类型来标记这些变量：
+
+```ts
+let notSure: any = 4;
+notSure = "maybe a string instead";
+```
+any类型是多人协作项目的大忌，很可能把Typescript变成AnyScript，通常在不得已的情况下，不应该首先考虑使用此类型。
+
 
 #### 小结
 我们上面说到了 TS 的原始类型，一共有八个之多，并且通过其中的 string 类型来讲解了如何将 TS 类型附着在原 JS 语法上以静态化 JS 语言，剩下的 7 个原始类型的用法和 string 类型类似，我们将在之后的讲解中逐渐用到其中的类型。

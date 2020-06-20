@@ -40,6 +40,7 @@ module.exports = {
           { text: '请求相关', link: '/technologyAccoumulation/request' },
           { text: 'http相关', link: '/technologyAccoumulation/http.md' },
           { text: '讲讲ts', link: '/typescript/summary.md' },
+          { text: 'ts入门', link: '/typescript/ts.md' },
         ]
       },
       {
