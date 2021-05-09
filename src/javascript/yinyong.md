@@ -53,6 +53,17 @@ const applyData = {
 let result = !Object.values(report).every(item => item === '')
 console.log(result)
 ```
+3. 判断是否是对象
+```js
+// 1 toString（推荐）
+Object.prototype.toString.call(obj) === '[object Object]'
+
+// 2 constructor
+obj.constructor === Object
+
+// 3 instanceof 需要注意的是由于数组也是对象，因此用 arr instanceof Object 也为true
+obj instanceof Object
+```
 
 ## 二、Array 类型
 

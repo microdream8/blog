@@ -41,6 +41,7 @@ module.exports = {
           { text: 'http相关', link: '/technologyAccoumulation/http.md' },
           { text: '讲讲ts', link: '/typescript/summary.md' },
           { text: 'ts入门', link: '/typescript/ts.md' },
+          { text: '代码优化', link: '/typescript/code-optimization.md' }
         ]
       },
       {

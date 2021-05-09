@@ -32,6 +32,256 @@ vue.js 有两大法宝，一个是数据驱动，另一个就是组件化，那�
 ### 与业务无关的独立组件
 这一类组件通常是与业务功能无关的独立组件。这类组件通常是作为基础组件，在各个业务组件或者页面组件中被使用。目前市面上比较流行的ElementUI和iview等中包含的组件都是独立组件。如果是自己定义的独立组件，比如富文本编辑器等，通常写在utils目录中。
 
+## 父子组件的多种方式
+集中通信方式无外乎以下几种：
+1. Prop
+2. $emit
+3. .sync 语法糖
+4. $attrs & $listeners
+5. provide & inject（高阶组件/组件库用的较多）
+6. 其它方式通信
+
+以下简单挑集中介绍下：
+### .sync修饰符
+在 vue@1.x 的时候曾作为双向绑定功能存在，即子组件可以修改父组件中的值。因为它违反了单向数据流的设计理念，所以在 vue@2.0 的时候被干掉了。但是在 vue@2.3.0+ 以上版本又重新引入了这个 .sync 修饰符。但是这次它只是作为一个编译时的语法糖存在。它会被扩展为一个自动更新父组件属性的 v-on 监听器。说白了就是让我们手动进行更新父组件中的值了，从而使数据改动来源更加的明显。下面引入自官方的一段话：
+
+在有些情况下，我们可能需要对一个 prop 进行“双向绑定”。不幸的是，真正的双向绑定会带来维护上的问题，因为子组件可以修改父组件，且在父组件和子组件都没有明显的改动来源。
+
+既然作为一个语法糖，肯定是某种写法的简写形式，哪种写法呢，看代码
+```html
+<text-document
+  v-bind:title="doc.title" 
+  v-on:update:title="doc.title = $event">
+</test-document>
+```
+于是我们可以用.sync语法糖简写成如下形式：
+```html
+<text-document 
+  v-bind:title.sync="doc.title">
+</test-document>
+```
+
+那么如何做到“双向绑定” 呢？<br/>
+假如我们想实现这样一个效果：改变子组件文本框中的值同时改变父组件中的值。怎么做？先看段代码：
+```html
+<div id="app">
+  <login :name.sync="userName"></login>{{ userName }}
+</div>
+
+let Login = Vue.extend({
+  template: `
+    <div class="input-group">
+      <label>姓名：</label>
+      <input v-model="text">
+    </div>
+  `,
+  props: ['name'],
+  data () {
+    return: {
+      text: ''
+    }
+  },
+  watch: {
+    text (newVal) {
+      this.$emit('update:name', newVal)
+    }
+  }
+})
+
+new Vue({
+  el: '#app',
+  data: {
+    userName: ''
+  },
+  components: {
+    Login
+  }
+})
+```
+下面划重点，代码里有这一句话：
+```js
+this.$emit('update:name', newVal)
+```
+
+官方语法是：update:myPropName 其中 myPropName 表示要更新的 prop 值。当然如果你不用 .sync 语法糖使用上面的 .$emit 也能达到同样的效果。仅此而已！
+
+### v-model
+写插件的时候，好多时候子组件需要主动修改父组件的值，或者绑定。
+
+这时候再用单纯的父子组件通信显得不合适，最好是让父组件不在过多的自己去操作数据，不然就不像一个本分的组件了，这时候就需要v-model。
+
+v-model父组件写法（绑定一个data）：
+```html
+<div>
+  <msg v-model="msg"></msg>
+</div>
+```
+
+v-model子组件写法：
+```html
+<template>
+  <div class="hello">
+    ------------------------
+    <p>{{msg}}</p>
+    <button @click="change">修改行数据</button>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'msg',
+  props: ['msg'],
+  model: {
+    prop: 'msg',
+    event: 'changeMsg'
+  },
+  data () {
+    return {
+      // msg: 'Welcome to Your Vue.js App'
+    }
+  },
+  methods: {
+    change () {
+      console.log('准备修改行数据')
+      this
+      this.$emit('changeMsg', 'change parents msg info')
+    }
+  }
+}
+</script>
+```
+子组件export default中的model:{}里面两个值，prop代表着我要和props的那个变量相对应，event表示着事件，我触发事件changeMsg的时候会改变父组件v-model的值。
+
+
+### 属性attrs 和 $listeners
+1. 官网对$attrs的解释如下：
+
+包含了父作用域中国呢不作为prop被识别（且获取）的特性绑定（class 和 style除外）。当一个组件没有声明任何prop时，这里会包含所有父作用域的绑定（class和style除外）,并且可以通过v-bind="attr"传入内部组件--在创建高级别的组件时非常有用。
+
+2. 官网对$listeners的解释如下：
+包含了父作用域中的（不含.native修饰器的）v-on事件监听器。它可以通过v-on="$listeners"传入内部组件--在创建更高层次的组件时非常有用。
+
+我觉得$attrs 和 $listeners属性像两个收纳箱，一个负责收纳属性，一个负责收纳事件，都是以对象形式来保存数据。看下面的代码解释：
+```html
+<div id="app">
+  <child
+    :foo="foo"
+    :bar="bar"
+    @one.native="triggerOne"
+    @two="triggersTwo">
+  </child>
+</div>
+```
+
+从 Html 中可以看到，这里有俩属性和俩方法，区别是属性一个是 prop 声明，事件一个是 .native 修饰器。
+
+```js
+let Child = Vue.extend({
+  template: '<h2>{{ foo}}</h2>',
+  props: ['foo'],
+  created () {
+    console.log(this.$attrs, this.$listeners)
+    // -> {bar: 'parent bar'}
+    // -> {two: fn}
+
+    // 这里我们访问父组件中的 `triggerTwo`方法
+    this.$listeners.two()
+    // -> 'two'
+  }
+})
+
+new Vue({
+  el: '#app',
+  data: {
+    foo: 'parent foo',
+    bar: 'parent bar'
+  },
+  components: {
+    Child
+  },
+  methods: {
+    triggerOne () {
+      alert('one')
+    },
+    triggerTwo () {
+      alert('two')
+    }
+  }
+})
+```
+
+可以看到，我们可以通过 $attrs 和 $listeners 进行数据传递，在需要的地方进行调整和处理，还是很方便的。当然，我们还可以通过v-on="$listeners"一级级的往下传递，子子孙孙无穷无尽。
+
+一个插曲！
+
+当我们在组件上赋予了一个非Prop 声明时，编译之后的代码会把这些个属性都当成原始属性对待，添加到 html 原生标签上，看上面的代码编译之后的样子：
+
+```html
+<h2 bar="parent bar">parent foo</h2>
+```
+
+这样会很难看，同时也爆了某些东西。如何去掉？这正是 inheritAttrs 属性的用武之地！给组件加上这个属性就行了，一般是配合 $attrs 使用。看代码：
+
+```js
+// 源码
+let Child = Vue.extend({
+  ...
+  inheritAttrs: false,  // 默认是 true
+  ...
+})
+```
+再次编译：
+```html
+<h2>parent foo</h2>
+```
+
+### provide / inject
+官方对 provide / inject 的描述：
+
+provide 和 inject 主要为高阶插件/组件库提供用例。并不推荐直接用于应用程序代码中。并且这对选项需要一起使用，以允许一个祖先组件向其所有子孙后代注入一个依赖，不论组件层次有多深，并在其上下游关系成立的时间里始终生效。
+
+一句话总结就是：小时候你老爸什么东西都先帮你存着等你长大该娶媳妇儿了你要房子给你买要车给你买只要他有的尽量都会满足你*（看到这句笑出了声）*。下面是这句话的代码解释：
+
+```js
+<div id="app">
+  <son></son>
+</div>
+
+let Son = Vue.extend({
+  template: '<h2>son</h2>',
+  inject: {
+    house: {
+      default: '没房'
+    },
+    car: {
+      default: '没车'
+    },
+    money: {
+      // 长大工作了虽然有点钱
+      // 仅供生活费，需要向父母要
+      default: '¥4500'
+    }
+  },
+  created () {
+    console.log(this.house, this.car, this.money)
+    // -> '房子', '车子', '¥10000'
+  }
+})
+
+new Vue({
+  el: '#app',
+  provide: {
+    house: '房子',
+    car: '车子',
+    money: '¥10000'
+  },
+  components: {
+    Son
+  }
+})
+```
+
+
 ## 如何进行组件化开发
 用自定义组件之前必须注册。 Vue.js 提供了 2 种组件的注册方式，全局注册和局部注册。
 

@@ -1,18 +1,16 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-20 15:31:58
- * @LastEditTime: 2020-06-20 15:32:11
+ * @LastEditTime: 2020-06-20 15:37:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
 --> 
-
-<!--
- * @Author: gexiaolei
- * @Date: 2020-05-31 15:15:54
- * @LastEditTime: 2020-06-11 22:40:36
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
---> 
+---
+title: 'TS入门'
+sidebar: auto
+collapsable: true
+---
+# TS入门
 
 # 什么是 TypeScript
 
